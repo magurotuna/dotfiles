@@ -10,24 +10,25 @@ REPO_URL=https://github.com/magurotuna/dotfiles.git
 REPO_TARBALL=https://github.com/magurotuna/dotfiles/archive/master.tar.gz
 
 echo "Start fetching..."
-if has "git"; then
+if type "git" > /dev/null 2>&1; then
     git clone --recursive $(REPO_URL) $(DOTPATH)
-elif has "curl"; then
+elif type "curl" > /dev/null 2>&1; then
     curl -L $(REPO_TARBALL) | tar zxv
     mv -f dotfiles-master $(DOTPATH)
-elif has "wget"; then
+elif type "wget" > /dev/null 2>&1; then
     wget -O - $(REPO_TARBALL) | tar zxv
     mv -f dotfiles-master $(DOTPATH)
 else
-    die "At least one of git, curl, wget is required."
+    echo "At least one of git, curl, wget is required."
+    exit 1
 fi
 echo "fetch done."
 
-DEPS=`cat $(DOTPATH)/basic_deps.txt | tr '\n' ''`
-if has "yum"; then
+DEPS=$(cat $(DOTPATH)/basic_deps.txt | tr '\n' '')
+if type "yum" > /dev/null 2>&1; then
     echo "Install basic dependencies by using yum..."
     yum update && yum install -y $(DEPS)
-elif has "apt"; then
+elif type "apt" > /dev/null 2>&1; then
     echo "Install basic dependencies by using apt..."
     apt update && apt install -y $(DEPS)
 else
