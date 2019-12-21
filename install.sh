@@ -33,10 +33,10 @@ echo "fetch done."
 DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
 if type "yum" > /dev/null 2>&1; then
     echo "Install basic dependencies by using yum..."
-    yum update && yum install -y ${DEPS}
+    yum update -y && yum install -y ${DEPS}
 elif type "apt" > /dev/null 2>&1; then
     echo "Install basic dependencies by using apt..."
-    apt update && apt install -y ${DEPS}
+    apt update -y && apt install -y ${DEPS}
 else
     echo "Neither yum nor apt is installed, so deps installation skips."
 fi
