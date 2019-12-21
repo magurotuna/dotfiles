@@ -9,6 +9,11 @@ DOTPATH=${HOME}/dotfiles
 REPO_URL=https://github.com/magurotuna/dotfiles.git
 REPO_TARBALL=https://github.com/magurotuna/dotfiles/archive/master.tar.gz
 
+# If DOTPATH already exists, remove this.
+if [ -d ${DOTPATH} ]; then
+    rm -rf ${DOTPATH}
+fi
+
 echo "Start fetching..."
 if type "git" > /dev/null 2>&1; then
     git clone --recursive ${REPO_URL} ${DOTPATH}
