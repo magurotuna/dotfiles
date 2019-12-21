@@ -1,0 +1,8 @@
+git
+vim
+unzip
+which
+make
+wget
+curl
+gcc
