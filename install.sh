@@ -5,9 +5,15 @@
 # 1. Fetch this repo
 # 2. Install basic dependencies
 
+set -e
+
 DOTPATH=${HOME}/dotfiles
 REPO_URL=https://github.com/magurotuna/dotfiles.git
 REPO_TARBALL=https://github.com/magurotuna/dotfiles/archive/master.tar.gz
+
+function has() {
+    type "${1:?too few arguments}" &>/dev/null
+}
 
 # If DOTPATH already exists, remove this.
 if [ -d ${DOTPATH} ]; then
@@ -16,12 +22,12 @@ if [ -d ${DOTPATH} ]; then
 fi
 
 echo "Start fetching..."
-if type "git" > /dev/null 2>&1; then
+if has "git"; then
     git clone --recursive ${REPO_URL} ${DOTPATH}
-elif type "curl" > /dev/null 2>&1; then
+elif has "curl"; then
     curl -L ${REPO_TARBALL} | tar zxv
     mv -f dotfiles-master ${DOTPATH}
-elif type "wget" > /dev/null 2>&1; then
+elif has "wget"; then
     wget -O - ${REPO_TARBALL} | tar zxv
     mv -f dotfiles-master ${DOTPATH}
 else
@@ -30,15 +36,22 @@ else
 fi
 echo "fetch done."
 
-DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
-if type "yum" > /dev/null 2>&1; then
-    echo "Install basic dependencies by using yum..."
-    yum update -y && yum install -y ${DEPS}
-elif type "apt" > /dev/null 2>&1; then
-    echo "Install basic dependencies by using apt..."
-    apt update -y && apt install -y ${DEPS}
-else
-    echo "Neither yum nor apt is installed, so deps installation skips."
+if has "yum" || has "apt"; then
+    DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
+    printf "Enter password: "
+    read PASSWORD
+
+    if has "yum"; then
+        echo "Install basic dependencies by using yum..."
+        echo "${PASSWORD}" | sudo -S yum update -y && \
+        echo "${PASSWORD}" | sudo -S yum install -y ${DEPS}
+    elif has "apt"; then
+        echo "Install basic dependencies by using apt..."
+        echo "${PASSWORD}" | sudo -S apt update -y && \
+        echo "${PASSWORD}" | sudo -S apt install -y ${DEPS}
+    else
+        echo "Neither yum nor apt is installed, so deps installation skips."
+    fi
 fi
 
-echo "Finish!"
+echo "Installation successfully finished!"
