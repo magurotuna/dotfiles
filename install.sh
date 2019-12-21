@@ -5,7 +5,7 @@
 # 1. Fetch this repo
 # 2. Install basic dependencies
 
-set -e
+set -eu
 
 DOTPATH=${HOME}/dotfiles
 REPO_URL=https://github.com/magurotuna/dotfiles.git

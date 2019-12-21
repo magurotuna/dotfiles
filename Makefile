@@ -14,8 +14,7 @@ deploy: ## Create symlink to home directory
 
 # TODO: implement
 init: ## Setup environment settings
-	@echo $(MAKEFILE_LIST)
-	@echo $(DOTPATH)
+	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init.sh
 
 update: ## Fetch changes for this repo
 	git pull origin master
