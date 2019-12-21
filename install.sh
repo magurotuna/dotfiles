@@ -11,6 +11,7 @@ REPO_TARBALL=https://github.com/magurotuna/dotfiles/archive/master.tar.gz
 
 # If DOTPATH already exists, remove this.
 if [ -d ${DOTPATH} ]; then
+    cd ${HOME}
     rm -rf ${DOTPATH}
 fi
 
@@ -29,7 +30,7 @@ else
 fi
 echo "fetch done."
 
-DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr '\n' '')
+DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
 if type "yum" > /dev/null 2>&1; then
     echo "Install basic dependencies by using yum..."
     yum update && yum install -y ${DEPS}
