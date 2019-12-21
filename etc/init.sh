@@ -80,7 +80,8 @@ function install_mac() {
                       slack \
                       sourcetree \
                       spectacle \
-                      karabiner-elements
+                      karabiner-elements \
+                      alacritty
     set -e
 }
 
