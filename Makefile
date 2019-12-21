@@ -1,7 +1,8 @@
 # This Makefile is written thanks to https://github.com/b4b4r07/dotfiles/blob/master/Makefile
 DOTPATH := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
-CANDIDATES := $(wildcard .??*) bin
-EXCLUSIONS := .DS_Store .git .gitmodules
+_CANDIDATES := $(wildcard .??*) .tmux.conf bin
+CANDIDATES := $(shell echo $(_CANDIDATES) | tr " " "\n" | sort | uniq | tr "\n" " ") # .tmux.conf may be duplicate, so check it
+EXCLUSIONS := .DS_Store .git .gitmodules .gitignore
 DOTFILES := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
@@ -10,9 +11,9 @@ list: ## Show dot files in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
 
 deploy: ## Create symlink to home directory
+	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/generate_tmux_conf.sh
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
-# TODO: implement
 init: ## Setup environment settings
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init.sh
 
