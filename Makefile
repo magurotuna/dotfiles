@@ -1,5 +1,5 @@
 # This Makefile is written thanks to https://github.com/b4b4r07/dotfiles/blob/master/Makefile
-DOTPATH := $(realpath $(dir $(lastword $(MAKRFILE_LIST))))
+DOTPATH := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin
 EXCLUSIONS := .DS_Store .git .gitmodules
 DOTFILES := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
@@ -8,6 +8,14 @@ DOTFILES := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 list: ## Show dot files in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
+
+deploy: ## Create symlink to home directory
+	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+
+# TODO: implement
+init: ## Setup environment settings
+	@echo $(MAKEFILE_LIST)
+	@echo $(DOTPATH)
 
 update: ## Fetch changes for this repo
 	git pull origin master
