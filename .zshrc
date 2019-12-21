@@ -27,6 +27,9 @@ alias ga='git add'
 alias gp='git push origin HEAD'
 alias sed='gsed'
 
+# Emacs mode (to use Ctrl-F, B, N, P, etc...)
+bindkey -e
+
 # zplugin
 source $HOME/.zplugin/bin/zplugin.zsh
 autoload -Uz _zplugin
@@ -35,7 +38,7 @@ autoload -Uz _zplugin
 zplugin ice wait'!0'; zplugin load zsh-users/zsh-autosuggestions
 zplugin ice wait'!0'; zplugin load zsh-users/zsh-completions
 zplugin ice wait'!0'; zplugin load zdharma/fast-syntax-highlighting
-zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+# zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
 
 autoload -U compinit
 compinit

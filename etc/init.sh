@@ -82,6 +82,25 @@ function install_mac() {
                       spectacle \
                       karabiner-elements \
                       alacritty
+
+    # Install fonts (Ricty for Powerline & Menlo for Powerline)
+    if ! ls -1 $HOME/Library/Fonts | grep "Ricty Regular for Powerline.ttf"; then
+        echo "Install Ricty for Powerline."
+        brew tap sanemat/font
+        brew install ricty --with-powerline
+        cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf $HOME/Library/Fonts/
+        fc-cache -vf
+    fi
+    
+    if ! ls -1 $HOME/Library/Fonts | grep "Menlo for Powerline.ttf"; then
+        echo "Install Menlo for Powerline."
+        local TMP_DIR=menlo_tmp_$(date +%s)
+        git clone https://github.com/abertsch/Menlo-for-Powerline.git ${HOME}/${TMP_DIR}
+        cp -f ${HOME}/${TMP_DIR}/Menlo*.ttf ${HOME}/Library/Fonts/
+        fc-cache -vf
+        rm -rf ${HOME}/${TMP_DIR}
+    fi
+
     set -e
 }
 
