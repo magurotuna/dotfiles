@@ -8,12 +8,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Make
-        run: make
-      - name: Deploy
-        run: make deploy
-      - name: Init
-        run: make init
+      - name: Deploy & Init
+        run: |
+          make
+          make deploy
+          make init
 
   test-centos:
     runs-on: ubuntu-latest
@@ -21,9 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Install
-        run: bash install.sh
-      - name: Deploy
-        run: make deploy
-      - name: Init
-        run: make init
+      - name: Install -> Deploy -> Init
+        run: |
+          bash install.sh
+          make
+          make deploy
+          make init
