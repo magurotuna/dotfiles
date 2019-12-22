@@ -17,3 +17,23 @@ function is_mac() {
 function is_centos() {
     [ -e /etc/redhat-release ]
 }
+
+function is_screen_running() {
+    [ -n "$STY" ]
+}
+
+function is_tmux_running() {
+    [ -n "$TMUX" ]
+}
+
+function is_screen_or_tmux_running() {
+    is_screen_running || is_tmux_running
+}
+
+function shell_has_started_interactively() {
+    [ -n "$PS1" ]
+}
+
+function is_ssh_running() {
+    [ -n "$SSH_CONECTION" ]
+}

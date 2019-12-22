@@ -30,6 +30,9 @@ alias sed='gsed'
 # Emacs mode (to use Ctrl-F, B, N, P, etc...)
 bindkey -e
 
+# Disable accept-line-and-down-history
+bindkey -r "^O"
+
 # zplugin
 source $HOME/.zplugin/bin/zplugin.zsh
 autoload -Uz _zplugin
@@ -63,3 +66,9 @@ function select_ghq() {
 }
 zle -N select_ghq
 bindkey "^g" select_ghq
+
+# Start tmux
+if [ -x $HOME/bin/tmuxx ]; then
+    # PS1 is required to know whether it is executed interactive mode or not.
+    PS1=$PS1 $HOME/bin/tmuxx
+fi
