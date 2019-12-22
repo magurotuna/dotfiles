@@ -121,7 +121,7 @@ function install_linux() {
     if ! has "brew"; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
     fi
-    eval $($HOME/.linuxbrew/bin/brew shellenv)
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
     brew update
 }
 
