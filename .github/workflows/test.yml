@@ -14,14 +14,13 @@ jobs:
           make deploy
           make init
 
-  test-centos:
+  test-ubuntu:
     runs-on: ubuntu-latest
-    container: centos:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Prepare -> Deploy -> Init
+      - name: Deploy -> Init
         run: |
-          ./etc/ci/centos.sh
+          make
           make deploy
           make init

@@ -18,6 +18,10 @@ function is_centos() {
     [ -e /etc/redhat-release ]
 }
 
+function is_ubuntu() {
+    [ -e /etc/lsb-release ]
+}
+
 function is_screen_running() {
     [ -n "$STY" ]
 }

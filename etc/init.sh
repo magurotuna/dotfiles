@@ -113,7 +113,8 @@ function install_linux() {
         sudo yum groupinstall -y 'Development Tools' && \
           sudo yum install -y curl file git ruby which
     elif has "apt"; then
-        echo "TODO: implement"
+        sudo apt update -y && \
+          sudo apt install -y build-essential curl file git ruby which
     fi
     
     # Install linuxbrew
@@ -153,6 +154,9 @@ if is_mac; then
     install_mac
 elif is_centos; then
     echo "This is Redhat Linux."
+    install_linux
+elif is_ubuntu; then
+    echo "This is Ubuntu."
     install_linux
 else
     # TODO: implementation for debian
