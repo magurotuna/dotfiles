@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Deploy & Init
+      - name: Deploy -> Init
         run: |
           make
           make deploy
@@ -20,9 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Install -> Deploy -> Init
+      - name: Prepare -> Deploy -> Init
         run: |
-          bash install.sh
-          make
+          sudo yum install -y make
+          make centos_ci
           make deploy
           make init
