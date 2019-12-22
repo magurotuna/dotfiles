@@ -108,6 +108,22 @@ function install_mac() {
     set -e
 }
 
+function install_linux() {
+    if has "yum"; then
+        sudo yum groupinstall -y 'Development Tools' && \
+          sudo yum install -y curl file git ruby which
+    elif has "apt"; then
+        echo "TODO: implement"
+    fi
+    
+    # Install linuxbrew
+    if ! has "brew"; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    fi
+    export PATH="$HOME/.linuxbrew/bin:$PATH"
+    brew update
+}
+
 function install_lang() {
     set +e
     brew update
@@ -137,7 +153,11 @@ if is_mac; then
     install_mac
 elif is_centos; then
     echo "This is Redhat Linux."
-    # TODO: implement CentOS initialization
+    install_linux
+else
+    # TODO: implementation for debian
+    echo "This is unknown platform. Abort."
+    exit 1
 fi
 
 install_lang

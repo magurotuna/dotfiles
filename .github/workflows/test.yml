@@ -8,8 +8,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: make
+      - name: Make
         run: make
+      - name: Deploy
+        run: make deploy
+      - name: Init
+        run: make init
+
+  test-centos:
+    runs-on: centos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install
+        run: bash install.sh
       - name: Deploy
         run: make deploy
       - name: Init
