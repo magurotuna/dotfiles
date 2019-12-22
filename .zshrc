@@ -4,6 +4,12 @@ eval "$(pyenv init -)"
 eval "$(rbenv init -)"
 eval "$(goenv init -)"
 
+# Linuxbrew
+# TODO: make this be loaded lazily
+if [[ $OSTYPE == "linux*" ]]; then
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
 # Rust
 source $HOME/.cargo/env
 
