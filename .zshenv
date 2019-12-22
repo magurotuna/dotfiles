@@ -39,6 +39,9 @@ export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 
+# XDG Base Directory Specification
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # History file and its size
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=100000
