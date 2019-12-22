@@ -16,7 +16,8 @@ jobs:
         run: make init
 
   test-centos:
-    runs-on: centos-latest
+    runs-on: ubuntu-latest
+    container: centos:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
