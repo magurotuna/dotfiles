@@ -112,6 +112,11 @@ function install_lang() {
                  rbenv \
                  goenv \
                  yarn
+    
+    # Rust toolchain
+    if ! has "rustup"; then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    fi
     set -e
 }
 

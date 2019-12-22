@@ -1,0 +1,29 @@
+[user]
+    name = Yusuke Tanaka
+    email = wing0920@gmail.com
+
+[push]
+    default = current # Push current branch to remote using the SAME BRANCH NAME even if upstream is not set.
+
+[commit]
+    template = ~/.commit_template
+
+[color]
+    ui = true
+
+[alias]
+    st = status
+    co = checkout
+    c = commit
+    graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+    delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
+
+[core]
+    excludesfile = ~/.gitignore_global
+    quotepath = false
+
+[credential]
+    helper = 'cache --timeout=86400'
+
+[ghq]
+    root = ~/repos
