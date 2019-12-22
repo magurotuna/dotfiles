@@ -114,7 +114,7 @@ function install_linux() {
           sudo yum install -y curl file git ruby which
     elif has "apt"; then
         sudo apt update -y && \
-          sudo apt install -y build-essential curl file git ruby which
+          sudo apt install -y build-essential curl file git ruby
     fi
     
     # Install linuxbrew
