@@ -38,23 +38,19 @@ echo "fetch done."
 
 if has "yum" || has "apt"; then
     DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
-    printf "Enter password: "
-    read PASSWORD
 
     if has "yum"; then
         if !has "sudo"; then
             yum update -y && yum install -y sudo
         fi
         echo "Install basic dependencies by using yum..."
-        echo "${PASSWORD}" | sudo -S yum update -y && \
-        echo "${PASSWORD}" | sudo -S yum install -y ${DEPS}
+        sudo yum update -y && sudo yum install -y ${DEPS}
     elif has "apt"; then
         if !has "sudo"; then
             apt update -y && apt install -y sudo
         fi
         echo "Install basic dependencies by using apt..."
-        echo "${PASSWORD}" | sudo -S apt update -y && \
-        echo "${PASSWORD}" | sudo -S apt install -y ${DEPS}
+        sudo apt update -y && sudo apt install -y ${DEPS}
     else
         echo "Neither yum nor apt is installed, so deps installation skips."
     fi
