@@ -23,10 +23,6 @@ update: ## Fetch changes for this repo
 	git submodule update
 	git submodule foreach git pull origin master
 
-centos_ci: ## Prepare CentOS environment for CI (instead of install.sh)
-	@DEPS=$(shell cat $(DOTPATH)/basic_deps.txt | tr "\n" " ")
-	sudo yum update -y && sudo yum install -y $(DEPS)
-
 # ref: [超小技!! Makefile に help をつけて「こいつ...できる!」と言われたい - Qiita](https://qiita.com/po3rin/items/7875ef9db5ca994ff762)
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \

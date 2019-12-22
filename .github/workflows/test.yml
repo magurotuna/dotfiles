@@ -22,7 +22,6 @@ jobs:
         uses: actions/checkout@v1
       - name: Prepare -> Deploy -> Init
         run: |
-          yum install -y make sudo
-          make centos_ci
+          ./etc/ci/centos.sh
           make deploy
           make init
