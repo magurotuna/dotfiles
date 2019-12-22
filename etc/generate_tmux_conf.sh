@@ -4,16 +4,24 @@ set-option -g default-command $(which zsh)
 set-option -s escape-time 0
 
 # enable 256 colors
-set-option -g default-terminal screen-256color
-set -g terminal-overrides 'xterm:colors=256'
+set -g default-terminal "screen-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+# status bar
+set-option -g status-left-length 90
+set-option -g status-right-length 90
+set-option -g status-left '#H:[#P]'
+set-option -g status-right '#(wifi) #(battery --tmux) [%Y-%m-%d(%a) %H:%M]'
+set-option -g status-interval 1
+set-option -g status-position top
+set-option -g status-justify centre
+set-option -g status-bg "colour238"
+set-option -g status-fg "colour255"
 
 # set prefix Ctrl-T
 set-option -g prefix C-t
 bind-key C-t send-prefix
 unbind-key C-b
-
-set-option -g status-position top
-set-option -g status-interval 1
 
 bind h select-pane -L
 bind j select-pane -D
