@@ -81,7 +81,11 @@ function install_mac() {
                       sourcetree \
                       spectacle \
                       karabiner-elements \
-                      alacritty
+                      alacritty \
+                      typora \
+                      1password \
+                      chatwork \
+                      skitch
 
     # Install fonts (Ricty for Powerline & Menlo for Powerline)
     if ! ls -1 $HOME/Library/Fonts | grep "Ricty Regular for Powerline.ttf"; then
