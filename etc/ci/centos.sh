@@ -11,4 +11,5 @@ yum install -y git \
               wget \
               curl \
               gcc \
-              bash
+              bash \
+              sudo
