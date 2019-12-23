@@ -148,6 +148,11 @@ function install_zplugin() {
     fi
 }
 
+function install_vimplug() {
+    curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
+
 if is_mac; then
     echo "This is macOS."
     set_mac_config
@@ -166,5 +171,6 @@ fi
 
 install_lang
 install_zplugin
+install_vimplug
 
 echo "Initialization successfully finished!"

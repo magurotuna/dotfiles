@@ -41,6 +41,7 @@ export PATH="$GOBIN:$PATH"
 
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
 
 # History file and its size
 export HISTFILE=$HOME/.zsh_history
