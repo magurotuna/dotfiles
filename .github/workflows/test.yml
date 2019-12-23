@@ -13,6 +13,7 @@ jobs:
           make
           make deploy
           make init
+          make test_ci
 
   test-ubuntu:
     runs-on: ubuntu-latest
