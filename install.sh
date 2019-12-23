@@ -36,24 +36,30 @@ else
 fi
 echo "fetch done."
 
-if has "yum" || has "apt"; then
-    DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
-
-    if has "yum"; then
-        if !has "sudo"; then
-            yum update -y && yum install -y sudo
+if [[ $OSTYPE == "linux*" ]]; then
+    if has "yum" || has "apt"; then
+        DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
+    
+        if has "yum"; then
+            if ! has "sudo"; then
+                yum update -y && yum install -y sudo
+            fi
+            echo "Install basic dependencies by using yum..."
+            sudo yum update -y && sudo yum install -y ${DEPS}
+        elif has "apt"; then
+            if ! has "sudo"; then
+                apt update -y && apt install -y sudo
+            fi
+            echo "Install basic dependencies by using apt..."
+            sudo apt update -y && sudo apt install -y ${DEPS}
+        else
+            echo "Neither yum nor apt is installed, so deps installation skips."
         fi
-        echo "Install basic dependencies by using yum..."
-        sudo yum update -y && sudo yum install -y ${DEPS}
-    elif has "apt"; then
-        if !has "sudo"; then
-            apt update -y && apt install -y sudo
-        fi
-        echo "Install basic dependencies by using apt..."
-        sudo apt update -y && sudo apt install -y ${DEPS}
-    else
-        echo "Neither yum nor apt is installed, so deps installation skips."
     fi
 fi
 
 echo "Installation successfully finished!"
+echo "Next step:"
+echo "$ cd ~/dotfiles"
+echo "$ make deploy"
+echo "$ make init"
