@@ -5,3 +5,4 @@
 # But the following directories should be under git management
 !/nvim
 !/karabiner
+!/coc

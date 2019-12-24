@@ -30,6 +30,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
