@@ -18,6 +18,7 @@ set incsearch
 set wrapscan
 set hlsearch
 set hidden
+set relativenumber
 
 " key map
 nnoremap j gj
@@ -27,10 +28,11 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'mhartington/oceanic-next'
+Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
+let g:base16_transparent_background = 1
 syntax enable
-colorscheme OceanicNext
+colorscheme base16-gruvbox-dark-pale
