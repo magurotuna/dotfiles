@@ -25,3 +25,5 @@ esac
 # # uninstall by removing these lines or running `tabtab uninstall slss`
 # [ -f /Users/yusuke/.config/yarn/global/node_modules/tabtab/.completions/slss.bash ] && . /Users/yusuke/.config/yarn/global/node_modules/tabtab/.completions/slss.bash
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
