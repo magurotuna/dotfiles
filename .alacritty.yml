@@ -5,10 +5,11 @@ font:
     family: Menlo for Powerline
   italic:
     family: Menlo for Powerline
-  size: 13.5
+  size: 14
   offset:
     y: 5
-background_opacity: 0.95
+    x: 1
+background_opacity: 0.93
 window:
   dimensions:
     columns: 400
@@ -19,6 +20,7 @@ window:
 cursor:
   style: Block
   unfocusedd_hollow: true
+draw_bold_text_with_bright_colors: false
 schemes:
   solarized_dark: &solarized_dark
     # Default colors
@@ -111,4 +113,36 @@ schemes:
       magenta: '0xc594c5'
       cyan:    '0x5fb3b3'
       white:   '0xd8dee9'
-colors: *oceanic_next
+  base16_gruvbox_dark_pale: &base16_gruvbox_dark_pale
+    # Default colors
+    primary:
+      background: '0x262626'
+      foreground: '0xdab997'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x262626'
+      cursor: '0xdab997'
+
+    # Normal colors
+    normal:
+      black:   '0x262626'
+      red:     '0xd75f5f'
+      green:   '0xafaf00'
+      yellow:  '0xffaf00'
+      blue:    '0x83adad'
+      magenta: '0xd485ad'
+      cyan:    '0x85ad85'
+      white:   '0xdab997'
+
+    # Bright colors
+    bright:
+      black:   '0x8a8a8a'
+      red:     '0xff8700'
+      green:   '0x3a3a3a'
+      yellow:  '0x4e4e4e'
+      blue:    '0x949494'
+      magenta: '0xd5c4a1'
+      cyan:    '0xd65d0e'
+      white:   '0xebdbb2'
+colors: *base16_gruvbox_dark_pale

@@ -2,7 +2,7 @@
 DOTPATH := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 _CANDIDATES := $(wildcard .??*) .tmux.conf bin
 CANDIDATES := $(shell echo $(_CANDIDATES) | tr " " "\n" | sort | uniq | tr "\n" " ") # .tmux.conf may be duplicate, so check it
-EXCLUSIONS := .DS_Store .git .gitmodules .gitignore
+EXCLUSIONS := .DS_Store .git .gitmodules .gitignore .github
 DOTFILES := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
@@ -12,7 +12,7 @@ list: ## Show dot files in this repo
 
 deploy: ## Create symlink to home directory
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/generate_tmux_conf.sh
-	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+	@$(foreach val, $(DOTFILES), $(DOTPATH)/etc/symlink_helper.sh $(abspath $(val)) $(HOME)/$(val);)
 
 init: ## Setup environment settings
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/init.sh

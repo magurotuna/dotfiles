@@ -20,7 +20,9 @@ eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
 
 # aliases
-alias ls='ls -G'
+alias l='exa'
+alias ls='exa'
+alias ll='exa -l'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
