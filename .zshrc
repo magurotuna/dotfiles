@@ -83,3 +83,5 @@ if [ -x $HOME/bin/tmuxx ]; then
     # PS1 is required to know whether it is executed interactive mode or not.
     PS1=$PS1 $HOME/bin/tmuxx
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
