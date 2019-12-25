@@ -23,6 +23,7 @@ eval "$(direnv hook zsh)"
 alias l='exa'
 alias ls='exa'
 alias ll='exa -l'
+alias cat='bat'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'

@@ -54,6 +54,7 @@ function install_mac() {
                  ghq \
                  fzf \
                  exa \
+                 bat \
                  ripgrep \
                  direnv \
                  tree \
@@ -173,4 +174,6 @@ install_lang
 install_zplugin
 install_vimplug
 
+echo "================================================"
 echo "Initialization successfully finished!"
+echo "================================================"
