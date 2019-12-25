@@ -124,6 +124,19 @@ function install_linux() {
     fi
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
     brew update
+    brew install git \
+                 zsh \
+                 tmux \
+                 vim \
+                 neovim \
+                 jq \
+                 fzf \
+                 exa \
+                 bat \
+                 ripgrep \
+                 direnv \
+                 tree \
+                 starship
 }
 
 function install_lang() {
