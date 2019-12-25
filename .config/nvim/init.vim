@@ -28,7 +28,7 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'chriskempson/base16-vim'
+Plug 'magurotuna/base16.nvim', {'branch': 'gruvbox-dark-pale'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 
@@ -36,4 +36,4 @@ call plug#end()
 
 let g:base16_transparent_background = 1
 syntax enable
-colorscheme base16-gruvbox-dark-pale
+colorscheme gruvbox-dark-pale
