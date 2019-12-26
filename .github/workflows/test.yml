@@ -25,3 +25,4 @@ jobs:
           make
           make deploy
           make init
+          make test_ci

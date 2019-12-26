@@ -9,7 +9,7 @@ font:
   offset:
     y: 5
     x: 1
-background_opacity: 0.93
+background_opacity: 0.97
 window:
   dimensions:
     columns: 400

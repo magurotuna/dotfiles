@@ -27,7 +27,7 @@ bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
-bind -n C-o select-pane -t :.+
+bind -n C-s select-pane -t :.+
 bind | split-window -h
 bind - split-window -v
 

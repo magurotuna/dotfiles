@@ -23,9 +23,8 @@ update: ## Fetch changes for this repo
 	git submodule update
 	git submodule foreach git pull origin master
 
-# TODO: write test for Linux
 test_ci: ## Run test scripts for CI
-	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/tests/macos.sh
+	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/etc/tests/apps_presence.sh
 
 # ref: [超小技!! Makefile に help をつけて「こいつ...できる!」と言われたい - Qiita](https://qiita.com/po3rin/items/7875ef9db5ca994ff762)
 help:

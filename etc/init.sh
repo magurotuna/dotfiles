@@ -54,6 +54,7 @@ function install_mac() {
                  ghq \
                  fzf \
                  exa \
+                 bat \
                  ripgrep \
                  direnv \
                  tree \
@@ -123,6 +124,19 @@ function install_linux() {
     fi
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
     brew update
+    brew install git \
+                 zsh \
+                 tmux \
+                 vim \
+                 neovim \
+                 jq \
+                 fzf \
+                 exa \
+                 bat \
+                 ripgrep \
+                 direnv \
+                 tree \
+                 starship
 }
 
 function install_lang() {
@@ -173,4 +187,6 @@ install_lang
 install_zplugin
 install_vimplug
 
+echo "================================================"
 echo "Initialization successfully finished!"
+echo "================================================"
