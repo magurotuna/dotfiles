@@ -3,6 +3,7 @@
 !/.gitignore
 
 # But the following directories should be under git management
+!/starship.toml
 !/nvim
 !/karabiner
 !/coc
