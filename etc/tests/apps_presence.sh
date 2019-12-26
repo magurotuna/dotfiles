@@ -37,6 +37,8 @@ elif is_ubuntu; then
   echo "💚 Start to check CLI apps have been installed for sure."
   CLI_APPS="git zsh tmux vim nvim jq fzf bat exa rg direnv tree starship"
 
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
   for _APP in $CLI_APPS
   do
       if ! has $_APP; then

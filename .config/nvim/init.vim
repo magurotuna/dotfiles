@@ -24,7 +24,7 @@ set gdefault
 set wrapscan
 set hlsearch
 set hidden
-set relativenumber
+set cursorline
 set showcmd
 set mouse=a " Enable mouse usage (all modes) in terminals
 set undodir=~/.vimdid " Permanent undo
@@ -121,7 +121,7 @@ function! s:show_documentation()
 endfunction
 
 " <leader>s for Rg search
-noremap <leader>s :Rg 
+noremap <leader>s :Rg<Enter>
 let g:fzf_layout = { 'down': '~20%' }
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
