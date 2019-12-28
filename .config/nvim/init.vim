@@ -166,8 +166,16 @@ omap af <Plug>(coc-funcobj-a)
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
+" Use `:Prettier` to format current buffer
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 " Use `:OR` for organize import of current buffer
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Remap keys for range format
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
 
 " =============================================================================
 " # Plugin settings
