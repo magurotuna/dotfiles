@@ -5,11 +5,11 @@ font:
     family: Menlo for Powerline
   italic:
     family: Menlo for Powerline
-  size: 14
+  size: 13
   offset:
     y: 5
     x: 1
-background_opacity: 0.97
+background_opacity: 1
 window:
   dimensions:
     columns: 400
