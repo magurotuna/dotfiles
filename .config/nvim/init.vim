@@ -26,6 +26,7 @@ set hlsearch
 set hidden
 set cursorline
 set showcmd
+set relativenumber
 set mouse=a " Enable mouse usage (all modes) in terminals
 set undodir=~/.vimdid " Permanent undo
 set undofile
@@ -42,11 +43,12 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jiangmiao/auto-pairs'
 Plug 'andymass/vim-matchup'
 Plug 'itchyny/lightline.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'machakann/vim-highlightedyank'
+Plug 'preservim/nerdcommenter'
+Plug 'terryma/vim-expand-region'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -112,6 +114,21 @@ nnoremap <silent> g* g*zz
 " =============================================================================
 " # Coc.nvim settings
 " =============================================================================
+
+let g:coc_global_extensions = [
+          \ 'coc-css',
+          \ 'coc-git',
+          \ 'coc-highlight',
+          \ 'coc-html',
+          \ 'coc-json',
+          \ 'coc-pairs',
+          \ 'coc-prettier',
+          \ 'coc-python',
+          \ 'coc-rust-analyzer',
+          \ 'coc-tsserver',
+          \ 'coc-yaml'
+          \ ]
+
 " use <tab> for trigger completion and navigate to the next complete item
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
@@ -227,4 +244,10 @@ endif
 if has("autocmd")
   " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
   au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Set filename to tmux's window name when opening a file in Vim
+if exists('$TMUX') && !exists('$NORENAME')
+  au BufEnter * if empty(&buftype) | call system('tmux rename-window "[vim]"'.expand('%:t:S')) | endif
+  au VimLeave * call system('tmux set-window automatic-rename on')
 endif
