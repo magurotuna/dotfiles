@@ -8,7 +8,7 @@
     "coc-pairs": ">=1.2.20",
     "coc-prettier": ">=1.1.11",
     "coc-python": ">=1.2.6",
-    "coc-rust-analyzer": ">=0.1.0",
+    "coc-rust-analyzer": ">=0.2.0",
     "coc-tsserver": ">=1.4.9",
     "coc-yaml": ">=1.0.2"
   }
