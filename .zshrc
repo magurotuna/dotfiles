@@ -53,7 +53,7 @@ zplugin ice wait'!0'; zplugin load zsh-users/zsh-autosuggestions
 zplugin ice wait'!0'; zplugin load zsh-users/zsh-completions
 zplugin ice wait'!0'; zplugin load zdharma/fast-syntax-highlighting
 
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 # history fuzzy find
