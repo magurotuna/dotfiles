@@ -149,8 +149,9 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <CR> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <CR> to confirm completion when completions are shown,
+" in other cases to format code style.
+inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)

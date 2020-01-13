@@ -8,5 +8,6 @@
     "html",
     "css",
     "Markdown"
-  ]
+  ],
+  "coc.preferences.formatOnType": true
 }
