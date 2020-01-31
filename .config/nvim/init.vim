@@ -110,6 +110,28 @@ nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
+
+" Easy to split windows and move between them
+nnoremap s <Nop>
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
+nnoremap sq :<C-u>q<CR>
+nnoremap sQ :<C-u>bd<CR>
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sn gt
+nnoremap sp gT
+
 
 " =============================================================================
 " # Coc.nvim settings
@@ -200,26 +222,9 @@ nmap <leader>f  <Plug>(coc-format-selected)
 " =============================================================================
 
 " easymotion
-nmap s <Plug>(easymotion-overwin-f2)
+nmap t <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable the default mappings
-
-" Coc
-nmap <silent> E <Plug>(coc-diagnostic-prev)
-nmap <silent> W <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " <leader>s for Rg search
 noremap <leader>s :Rg<Enter>
