@@ -49,6 +49,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'machakann/vim-highlightedyank'
 Plug 'preservim/nerdcommenter'
 Plug 'terryma/vim-expand-region'
+Plug 'cespare/vim-toml'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
