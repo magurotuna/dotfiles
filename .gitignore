@@ -1,2 +1,4 @@
 # Ignore .tmux.conf because it is different from platform. Use generate script (etc/generate_tmux_conf.sh).
 /.tmux.conf
+
+.netrwhist
