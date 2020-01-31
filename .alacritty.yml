@@ -1,13 +1,13 @@
 font:
   normal:
-    family: Menlo for Powerline
+    family: Ricty for Powerline
   bold:
-    family: Menlo for Powerline
+    family: Ricty for Powerline
   italic:
-    family: Menlo for Powerline
-  size: 13
+    family: Ricty for Powerline
+  size: 15
   offset:
-    y: 5
+    y: 3
     x: 1
 background_opacity: 1
 window:

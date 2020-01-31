@@ -63,7 +63,7 @@ call plug#end()
 " =============================================================================
 
 syntax enable
-colorscheme base16-gruvbox-dark-pale
+colorscheme base16-monokai
 
 " lightline
 function! CocCurrentFunction()
