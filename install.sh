@@ -39,7 +39,7 @@ echo "fetch done."
 if [[ $OSTYPE == "linux*" ]]; then
     if has "yum" || has "apt"; then
         DEPS=$(cat ${DOTPATH}/basic_deps.txt | tr "\n" " ")
-    
+
         if has "yum"; then
             if ! has "sudo"; then
                 yum update -y && yum install -y sudo
