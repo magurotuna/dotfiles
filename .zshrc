@@ -37,6 +37,7 @@ alias gp='git push origin HEAD'
 alias sed='gsed'
 alias vi='nvim'
 alias vim='nvim'
+alias atc='cargo atcoder'
 
 # Emacs mode (to use Ctrl-F, B, N, P, etc...)
 bindkey -e
