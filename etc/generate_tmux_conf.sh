@@ -17,6 +17,10 @@ set-option -g status-position top
 set-option -g status-justify centre
 set-option -g status-bg "colour238"
 set-option -g status-fg "colour255"
+set-window-option -g window-status-style fg=cyan
+set-window-option -g window-status-style bg=default
+set-window-option -g window-status-current-style bright
+set-window-option -g window-status-style dim
 
 # set prefix Ctrl-T
 set-option -g prefix C-t
