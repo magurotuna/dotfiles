@@ -22,6 +22,11 @@ function tmux_automatically_attach_session()
                 return 1
             fi
 
+            # Do not start tmux when this is vscode integrated shell
+            if [[ $TERM_PROGRAM == "vscode" ]]; then
+                return 0
+            fi
+
             if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '\d+.*$'; then
                 # detached session exists
                 tmux list-sessions
