@@ -19,6 +19,9 @@ eval "$(starship init zsh)"
 # direnv
 eval "$(direnv hook zsh)"
 
+# Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
 # aliases
 alias l='exa'
 alias ls='exa'

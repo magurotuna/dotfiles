@@ -1,14 +1,14 @@
 font:
   normal:
-    family: Ricty for Powerline
+    family: Cica
   bold:
-    family: Ricty for Powerline
+    family: Cica
   italic:
-    family: Ricty for Powerline
-  size: 15
+    family: Cica
+  size: 17
   offset:
-    y: 3
-    x: 1
+    y: 0
+    x: 0
 background_opacity: 1
 window:
   dimensions:
