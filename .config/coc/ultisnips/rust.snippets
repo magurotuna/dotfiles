@@ -1,0 +1,291 @@
+snippet COMBINATION
+#[doc = " \u{4e8c}\u{9805}\u{4fc2}\u{6570}\u{3092} mod \u{306e}\u{3082}\u{3068}\u{3067}\u{6c42}\u{3081}\u{308b}"]
+#[doc = " cf. [\u{3088}\u{304f}\u{3084}\u{308b}\u{4e8c}\u{9805}\u{4fc2}\u{6570} (nCk mod. p)\u{3001}\u{9006}\u{5143} (a^-1 mod. p) \u{306e}\u{6c42}\u{3081}\u{65b9} - \u{3051}\u{3093}\u{3061}\u{3087}\u{3093}\u{306e}\u{7af6}\u{30d7}\u{30ed}\u{7cbe}\u{9032}\u{8a18}\u{9332}](http://drken1215.hatenablog.com/entry/2018/06/08/210000)"]
+pub struct Comb {
+    max_size: usize,
+    modulo: usize,
+    factorical_table: Vec<usize>,
+    factorical_inverse_table: Vec<usize>,
+    inverse_table: Vec<usize>,
+}
+impl Comb {
+    pub fn new(max_size: usize, modulo: usize) -> Self {
+        let max_size = std::cmp::max(10, max_size);
+        assert!(max_size <= 10_000_000);
+        let mut factorical_table = vec![0; max_size];
+        let mut factorical_inverse_table = vec![0; max_size];
+        let mut inverse_table = vec![0; max_size];
+        factorical_table[0] = 1;
+        factorical_table[1] = 1;
+        factorical_inverse_table[0] = 1;
+        factorical_inverse_table[1] = 1;
+        inverse_table[1] = 1;
+        for i in 2..max_size {
+            factorical_table[i] = factorical_table[i - 1] * i % modulo;
+            inverse_table[i] = modulo - inverse_table[modulo % i] * (modulo / i) % modulo;
+            factorical_inverse_table[i] =
+                factorical_inverse_table[i - 1] * inverse_table[i] % modulo;
+        }
+        Self {
+            max_size,
+            modulo,
+            factorical_table,
+            factorical_inverse_table,
+            inverse_table,
+        }
+    }
+    pub fn calc(&self, n: usize, k: usize) -> usize {
+        if n < k {
+            0
+        } else {
+            self.factorical_table[n]
+                * (self.factorical_inverse_table[k] * self.factorical_inverse_table[n - k]
+                    % self.modulo)
+                % self.modulo
+        }
+    }
+}
+endsnippet
+
+snippet DisjointSet
+#[derive(Debug, Clone)]
+pub struct DisjointSet {
+    parent: Vec<usize>,
+    rank: Vec<usize>,
+}
+impl DisjointSet {
+    pub fn new(n: usize) -> Self {
+        Self {
+            parent: (0..n).collect(),
+            rank: vec![0; n],
+        }
+    }
+    pub fn root(&mut self, x: usize) -> Option<usize> {
+        if x > self.parent.len() {
+            None
+        } else if self.parent[x] == x {
+            Some(x)
+        } else {
+            let px = self.parent[x];
+            let root = self.root(px).unwrap();
+            self.parent[x] = root;
+            Some(root)
+        }
+    }
+    pub fn unite(&mut self, x: usize, y: usize) {
+        let x_root = match self.root(x) {
+            None => return,
+            Some(val) => val,
+        };
+        let y_root = match self.root(y) {
+            None => return,
+            Some(val) => val,
+        };
+        if x_root == y_root {
+            return;
+        }
+        if self.rank[x] < self.rank[y] {
+            self.parent[x_root] = y_root;
+        } else {
+            self.parent[y_root] = x_root;
+            if self.rank[x_root] == self.rank[y_root] {
+                self.rank[x_root] += 1;
+            }
+        }
+    }
+    pub fn same(&mut self, x: usize, y: usize) -> bool {
+        let x_root = match self.root(x) {
+            None => return false,
+            Some(val) => val,
+        };
+        let y_root = match self.root(y) {
+            None => return false,
+            Some(val) => val,
+        };
+        x_root == y_root
+    }
+}
+endsnippet
+
+snippet GCD
+pub fn gcd(a: u64, b: u64) -> u64 {
+    if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
+endsnippet
+
+snippet LCM
+pub fn gcd(a: u64, b: u64) -> u64 {
+    if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
+pub fn lcm(a: u64, b: u64) -> u64 {
+    a / gcd(a, b) * b
+}
+endsnippet
+
+snippet MOD_INV
+#[doc = " mod m \u{3067}\u{306e} a \u{306e}\u{9006}\u{5143}\u{3092}\u{6c42}\u{3081}\u{308b}"]
+#[doc = " m \u{3068} a \u{304c}\u{4e92}\u{3044}\u{306b}\u{7d20}\u{3067}\u{306a}\u{3051}\u{308c}\u{3070}\u{306a}\u{3089}\u{306a}\u{3044}\u{3053}\u{3068}\u{306b}\u{6ce8}\u{610f}"]
+#[doc = " cf. [\u{300c}1000000007 \u{3067}\u{5272}\u{3063}\u{305f}\u{3042}\u{307e}\u{308a}\u{300d}\u{306e}\u{6c42}\u{3081}\u{65b9}\u{3092}\u{7dcf}\u{7279}\u{96c6}\u{ff01} \u{301c} \u{9006}\u{5143}\u{304b}\u{3089}\u{96e2}\u{6563}\u{5bfe}\u{6570}\u{307e}\u{3067} \u{301c} - Qiita](https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a)"]
+pub fn mod_inv(a: u64, m: u64) -> u64 {
+    use std::mem::swap;
+    let mut a = a as i64;
+    let mut b = m as i64;
+    let mut u = 1;
+    let mut v = 0;
+    while b > 0 {
+        let t = a / b;
+        a -= t * b;
+        swap(&mut a, &mut b);
+        u -= t * v;
+        swap(&mut u, &mut v);
+    }
+    u %= m as i64;
+    if u < 0 {
+        u += m as i64;
+    }
+    u as u64
+}
+endsnippet
+
+snippet MOD_POW
+#[doc = " \u{7d2f}\u{4e57}\u{306e}mod"]
+pub fn mod_pow(x: u64, n: u64, m: u64) -> u64 {
+    let mut res = 1;
+    let mut x = x % m;
+    let mut n = n;
+    while n > 0 {
+        if n & 1 == 1 {
+            res = (res * x) % m;
+        }
+        x = (x * x) % m;
+        n >>= 1;
+    }
+    res
+}
+endsnippet
+
+snippet PRIME
+pub trait Prime {
+    fn lower_primes(&self) -> Vec<usize>;
+    fn factorize(&self) -> std::collections::HashMap<usize, usize>;
+}
+impl Prime for usize {
+    #[doc = " \u{30a8}\u{30e9}\u{30c8}\u{30b9}\u{30c6}\u{30cd}\u{30b9}\u{306e}\u{7be9}\u{3092}\u{7528}\u{3044}\u{3066}self\u{4ee5}\u{4e0b}\u{306e}\u{7d20}\u{6570}\u{3092}\u{6c42}\u{3081}\u{308b}"]
+    #[doc = " \u{8a08}\u{7b97}\u{91cf}: O(n log log n)"]
+    fn lower_primes(&self) -> Vec<usize> {
+        let &this = self;
+        let mut v = Vec::new();
+        if this < 2 {
+            return v;
+        }
+        let mut deque = (2..(this + 1)).collect::<std::collections::VecDeque<usize>>();
+        let mut p = match deque.pop_front() {
+            Some(x) => x,
+            None => return v,
+        };
+        v.push(p);
+        while p as f64 <= (this as f64).sqrt() {
+            deque = deque.iter().filter(|&&x| x % p != 0).map(|x| *x).collect();
+            p = match deque.pop_front() {
+                Some(x) => x,
+                None => return v,
+            };
+            v.push(p);
+        }
+        for n in deque {
+            v.push(n);
+        }
+        v
+    }
+    #[doc = " \u{30a8}\u{30e9}\u{30c8}\u{30b9}\u{30c6}\u{30cd}\u{30b9}\u{306e}\u{7be9}\u{3092}\u{7528}\u{3044}\u{3066}self\u{3092}\u{7d20}\u{56e0}\u{6570}\u{5206}\u{89e3}\u{3059}\u{308b}"]
+    fn factorize(&self) -> std::collections::HashMap<usize, usize> {
+        let mut ret = std::collections::HashMap::new();
+        let primes = ((*self as f64).sqrt() as usize).lower_primes();
+        let mut tmp = *self;
+        for prime in primes {
+            while tmp % prime == 0 {
+                tmp /= prime;
+                *ret.entry(prime).or_insert(0) += 1;
+            }
+        }
+        if tmp > 1 {
+            *ret.entry(tmp).or_insert(0) += 1;
+        }
+        ret
+    }
+}
+endsnippet
+
+snippet SEG
+#[derive(Debug)]
+pub struct SegmentTree<T, F>
+where
+    T: Clone + Copy,
+    F: Fn(T, T) -> T,
+{
+    values: Vec<T>,
+    n_leaves: usize,
+    identity_elem: T,
+    func: F,
+}
+impl<T, F> SegmentTree<T, F>
+where
+    T: Clone + Copy,
+    F: Fn(T, T) -> T,
+{
+    pub fn new(init_value: T, size: usize, func: F) -> Self {
+        let mut n = 1;
+        while n < size {
+            n *= 2;
+        }
+        Self {
+            values: vec![init_value; 2 * n - 1],
+            n_leaves: n,
+            identity_elem: init_value,
+            func,
+        }
+    }
+    pub fn update(&mut self, leaf_number: usize, replace_value: T) {
+        let mut node_number = leaf_number + self.n_leaves - 1;
+        self.values[node_number] = replace_value;
+        while node_number > 0 {
+            node_number = (node_number - 1) / 2;
+            self.values[node_number] = (self.func)(
+                self.values[node_number * 2 + 1],
+                self.values[node_number * 2 + 2],
+            );
+        }
+    }
+    pub fn query(&self, begin: usize, end: usize) -> T {
+        self.internal_query(begin, end, 0, 0, self.n_leaves)
+    }
+    fn internal_query(
+        &self,
+        begin: usize,
+        end: usize,
+        node_number: usize,
+        left: usize,
+        right: usize,
+    ) -> T {
+        if right <= begin || end <= left {
+            self.identity_elem
+        } else if begin <= left && right <= end {
+            self.values[node_number]
+        } else {
+            let c1 = self.internal_query(begin, end, 2 * node_number + 1, left, (left + right) / 2);
+            let c2 =
+                self.internal_query(begin, end, 2 * node_number + 2, (left + right) / 2, right);
+            (self.func)(c1, c2)
+        }
+    }
+}
+endsnippet
+
