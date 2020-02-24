@@ -26,7 +26,7 @@ set hlsearch
 set hidden
 set cursorline
 set showcmd
-set relativenumber
+set number
 set mouse=a " Enable mouse usage (all modes) in terminals
 set undodir=~/.vimdid " Permanent undo
 set undofile
