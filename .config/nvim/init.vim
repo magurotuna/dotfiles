@@ -157,6 +157,7 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
 " navigate to the next item
 inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
 
@@ -175,6 +176,9 @@ endfunction
 " Use <CR> to confirm completion when completions are shown,
 " in other cases to format code style.
 inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use <Tab> to go next placeholder in snippet
+let g:coc_snippet_next = '<Tab>'
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
