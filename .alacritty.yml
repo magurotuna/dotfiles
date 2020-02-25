@@ -5,10 +5,10 @@ font:
     family: Cica
   italic:
     family: Cica
-  size: 17
+  size: 16
   offset:
-    y: 0
-    x: 0
+    y: 2
+    x: 1
 background_opacity: 1
 window:
   dimensions:
