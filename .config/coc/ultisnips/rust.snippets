@@ -1,6 +1,6 @@
 snippet COMBINATION
-#[doc = " \u{4e8c}\u{9805}\u{4fc2}\u{6570}\u{3092} mod \u{306e}\u{3082}\u{3068}\u{3067}\u{6c42}\u{3081}\u{308b}"]
-#[doc = " cf. [\u{3088}\u{304f}\u{3084}\u{308b}\u{4e8c}\u{9805}\u{4fc2}\u{6570} (nCk mod. p)\u{3001}\u{9006}\u{5143} (a^-1 mod. p) \u{306e}\u{6c42}\u{3081}\u{65b9} - \u{3051}\u{3093}\u{3061}\u{3087}\u{3093}\u{306e}\u{7af6}\u{30d7}\u{30ed}\u{7cbe}\u{9032}\u{8a18}\u{9332}](http://drken1215.hatenablog.com/entry/2018/06/08/210000)"]
+#[doc = " 二項係数を mod のもとで求める"]
+#[doc = " cf. [よくやる二項係数 (nCk mod. p)、逆元 (a^-1 mod. p) の求め方 - けんちょんの競プロ精進記録](http://drken1215.hatenablog.com/entry/2018/06/08/210000)"]
 pub struct Comb {
     max_size: usize,
     modulo: usize,
@@ -47,7 +47,7 @@ impl Comb {
 }
 endsnippet
 
-snippet DisjointSet
+snippet DISJOINT_SET
 #[derive(Debug, Clone)]
 pub struct DisjointSet {
     parent: Vec<usize>,
@@ -131,9 +131,9 @@ pub fn lcm(a: u64, b: u64) -> u64 {
 endsnippet
 
 snippet MOD_INV
-#[doc = " mod m \u{3067}\u{306e} a \u{306e}\u{9006}\u{5143}\u{3092}\u{6c42}\u{3081}\u{308b}"]
-#[doc = " m \u{3068} a \u{304c}\u{4e92}\u{3044}\u{306b}\u{7d20}\u{3067}\u{306a}\u{3051}\u{308c}\u{3070}\u{306a}\u{3089}\u{306a}\u{3044}\u{3053}\u{3068}\u{306b}\u{6ce8}\u{610f}"]
-#[doc = " cf. [\u{300c}1000000007 \u{3067}\u{5272}\u{3063}\u{305f}\u{3042}\u{307e}\u{308a}\u{300d}\u{306e}\u{6c42}\u{3081}\u{65b9}\u{3092}\u{7dcf}\u{7279}\u{96c6}\u{ff01} \u{301c} \u{9006}\u{5143}\u{304b}\u{3089}\u{96e2}\u{6563}\u{5bfe}\u{6570}\u{307e}\u{3067} \u{301c} - Qiita](https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a)"]
+#[doc = " mod m での a の逆元を求める"]
+#[doc = " m と a が互いに素でなければならないことに注意"]
+#[doc = " cf. [「1000000007 で割ったあまり」の求め方を総特集！ 〜 逆元から離散対数まで 〜 - Qiita](https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a)"]
 pub fn mod_inv(a: u64, m: u64) -> u64 {
     use std::mem::swap;
     let mut a = a as i64;
@@ -156,7 +156,7 @@ pub fn mod_inv(a: u64, m: u64) -> u64 {
 endsnippet
 
 snippet MOD_POW
-#[doc = " \u{7d2f}\u{4e57}\u{306e}mod"]
+#[doc = " 累乗のmod"]
 pub fn mod_pow(x: u64, n: u64, m: u64) -> u64 {
     let mut res = 1;
     let mut x = x % m;
@@ -178,8 +178,8 @@ pub trait Prime {
     fn factorize(&self) -> std::collections::HashMap<usize, usize>;
 }
 impl Prime for usize {
-    #[doc = " \u{30a8}\u{30e9}\u{30c8}\u{30b9}\u{30c6}\u{30cd}\u{30b9}\u{306e}\u{7be9}\u{3092}\u{7528}\u{3044}\u{3066}self\u{4ee5}\u{4e0b}\u{306e}\u{7d20}\u{6570}\u{3092}\u{6c42}\u{3081}\u{308b}"]
-    #[doc = " \u{8a08}\u{7b97}\u{91cf}: O(n log log n)"]
+    #[doc = " エラトステネスの篩を用いてself以下の素数を求める"]
+    #[doc = " 計算量: O(n log log n)"]
     fn lower_primes(&self) -> Vec<usize> {
         let &this = self;
         let mut v = Vec::new();
@@ -205,7 +205,7 @@ impl Prime for usize {
         }
         v
     }
-    #[doc = " \u{30a8}\u{30e9}\u{30c8}\u{30b9}\u{30c6}\u{30cd}\u{30b9}\u{306e}\u{7be9}\u{3092}\u{7528}\u{3044}\u{3066}self\u{3092}\u{7d20}\u{56e0}\u{6570}\u{5206}\u{89e3}\u{3059}\u{308b}"]
+    #[doc = " エラトステネスの篩を用いてselfを素因数分解する"]
     fn factorize(&self) -> std::collections::HashMap<usize, usize> {
         let mut ret = std::collections::HashMap::new();
         let primes = ((*self as f64).sqrt() as usize).lower_primes();
@@ -224,7 +224,7 @@ impl Prime for usize {
 }
 endsnippet
 
-snippet SEG
+snippet SEG_TREE
 #[derive(Debug)]
 pub struct SegmentTree<T, F>
 where
