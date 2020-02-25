@@ -1,10 +1,13 @@
 font:
   normal:
     family: Cica
+    style: Regular
   bold:
     family: Cica
+    style: Bold
   italic:
     family: Cica
+    style: Italic
   size: 16
   offset:
     y: 2
