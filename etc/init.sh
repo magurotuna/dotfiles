@@ -59,7 +59,7 @@ function install_mac() {
                  direnv \
                  tree \
                  starship
-    
+
     # Make zsh default shell
     local LOGIN_SHELL=$(show_user_shell)
     if [ ${LOGIN_SHELL} != $(which zsh) ]; then
@@ -96,7 +96,7 @@ function install_mac() {
         cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf $HOME/Library/Fonts/
         fc-cache -vf
     fi
-    
+
     if ! ls -1 $HOME/Library/Fonts | grep "Menlo for Powerline.ttf"; then
         echo "Install Menlo for Powerline."
         local TMP_DIR=menlo_tmp_$(date +%s)
@@ -117,7 +117,7 @@ function install_linux() {
         sudo apt update -y && \
           sudo apt install -y build-essential curl file git ruby
     fi
-    
+
     # Install linuxbrew
     if ! has "brew"; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
@@ -147,7 +147,7 @@ function install_lang() {
                  rbenv \
                  goenv \
                  yarn
-    
+
     # Rust toolchain
     if ! has "rustup"; then
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

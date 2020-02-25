@@ -1,3 +1,4 @@
 node_modules/
 db.json
 /coc-rust-analyzer-data/ra_lsp_server
+/coc-rust-analyzer-data/rust-analyzer

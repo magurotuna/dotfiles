@@ -8,7 +8,7 @@
     "coc-pairs": "git+https://github.com/neoclide/coc-pairs.git#master",
     "coc-prettier": ">=1.1.11",
     "coc-python": ">=1.2.9",
-    "coc-rust-analyzer": ">=0.4.2",
+    "coc-rust-analyzer": ">=0.4.3",
     "coc-snippets": ">=2.1.19",
     "coc-tsserver": ">=1.4.9",
     "coc-yaml": ">=1.0.3"
