@@ -4,6 +4,8 @@
 <dict>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
+	<key>ApplePressAndHoldEnabled</key>
+	<false/>
 	<key>AppleScrollAnimationEnabled</key>
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
@@ -604,7 +606,7 @@
 	dWxs0g0ODxJaTlMub2JqZWN0c1YkY2xhc3OiEBGAAoAKgA3TFA0OFRkdV05TLmtleXOj
 	FhcYgAOABIAFoxobHIAGgAeACIAJWklkZW50aWZpZXJVV2lkdGhWSGlkZGVuUTAjQGjA
 	AAAAAAAI0iUmJyhaJGNsYXNzbmFtZVgkY2xhc3Nlc1xOU0RpY3Rpb25hcnmiJylYTlNP
-	YmplY3TTFA0OKy8doxYXGIADgASABaMwMRyAC4AMgAiACVExI0B0oZ2yLQ5W0iUmNzhe
+	YmplY3TTFA0OKy8doxYXGIADgASABaMwMRyAC4AMgAiACVExI0BzsZ2yLQ5W0iUmNzhe
 	TlNNdXRhYmxlQXJyYXmjNzkpV05TQXJyYXkACAARABoAJAApADIANwBJAEwAUgBUAGMA
 	aQBuAHkAgACDAIUAhwCJAJAAmACcAJ4AoACiAKYAqACqAKwArgC5AL8AxgDIANEA0gDX
 	AOIA6wD4APsBBAELAQ8BEQETARUBGQEbAR0BHwEhASMBLAExAUABRAAAAAAAAAIBAAAA
@@ -634,14 +636,14 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>637 478 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1680 -840 3360 1890 1680 -840 3360 1867 </string>
+	<string>1683 -840 1673 1867 1680 -840 3360 1867 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
 			<key>ASCII Ligatures</key>
-			<true/>
+			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
@@ -984,19 +986,19 @@
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>HotKey Activated By Modifier</key>
-			<true/>
+			<false/>
 			<key>HotKey Alternate Shortcuts</key>
 			<array/>
 			<key>HotKey Characters</key>
-			<string></string>
+			<string>,</string>
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string></string>
+			<string>,</string>
 			<key>HotKey Key Code</key>
-			<integer>0</integer>
+			<integer>43</integer>
 			<key>HotKey Modifier Activation</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Flags</key>
-			<integer>0</integer>
+			<integer>262144</integer>
 			<key>HotKey Window Animates</key>
 			<false/>
 			<key>HotKey Window AutoHides</key>
@@ -1393,19 +1395,20 @@
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
-			<integer>1</integer>
+			<integer>0</integer>
 			<key>Working Directory</key>
 			<string>/Users/yusuke</string>
 		</dict>
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
-		<string>3.2.9</string>
-		<string>3.3.1</string>
-		<string>3.3.4</string>
-		<string>3.3.7</string>
-		<string>3.3.3</string>
 		<string>3.3.6</string>
+		<string>3.3.1</string>
+		<string>3.3.3</string>
+		<string>3.3.7</string>
+		<string>3.3.9</string>
+		<string>3.2.9</string>
+		<string>3.3.4</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
@@ -1428,7 +1431,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>92C4F93A-89A9-4791-9C7A-4854660B65AF</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>21</integer>
+	<integer>25</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>586956166.28290606</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -1817,6 +1820,14 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
+				<string>currentTab.window</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
 				<string>id</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -2012,6 +2023,14 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
+				<string>window</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
 				<string>id</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -2175,7 +2194,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-02-25T14:12:36Z</date>
+	<date>2020-02-27T15:05:32Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -3812,6 +3831,6 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.7</string>
+	<string>3.3.9</string>
 </dict>
 </plist>
