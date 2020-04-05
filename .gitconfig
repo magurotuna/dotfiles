@@ -1,6 +1,6 @@
 [user]
     name = Yusuke Tanaka
-    email = wing0920@gmail.com
+    email = yusuktan@maguro.dev
 
 [push]
     default = current # Push current branch to remote using the SAME BRANCH NAME even if upstream is not set.
