@@ -64,7 +64,7 @@ call plug#end()
 " =============================================================================
 
 syntax enable
-colorscheme base16-monokai
+colorscheme base16-onedark
 
 " lightline
 function! CocCurrentFunction()
