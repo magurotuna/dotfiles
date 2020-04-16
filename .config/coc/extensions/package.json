@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "coc-css": ">=1.2.2",
+    "coc-clangd": ">=0.3.2",
+    "coc-css": ">=1.2.3",
     "coc-git": ">=1.7.9",
     "coc-highlight": ">=1.2.5",
     "coc-html": ">=1.2.4",
@@ -9,8 +10,8 @@
     "coc-prettier": ">=1.1.12",
     "coc-python": ">=1.2.9",
     "coc-rust-analyzer": ">=0.5.2",
-    "coc-snippets": ">=2.1.24",
-    "coc-tsserver": ">=1.4.13",
+    "coc-snippets": ">=2.1.25",
+    "coc-tsserver": ">=1.4.15",
     "coc-yaml": ">=1.0.4"
   }
 }

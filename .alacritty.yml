@@ -11,7 +11,7 @@ font:
   bold_italic:
     family: Ricty
     style: BoldOblique
-  size: 15
+  size: 16
   offset:
     y: 3
     x: 1
