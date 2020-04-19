@@ -1,12 +1,17 @@
 [user]
     name = Yusuke Tanaka
     email = yusuktan@maguro.dev
+    signingkey = "FB400947BC29E1350722F1C8ED140E94529786F1"
 
 [push]
     default = current # Push current branch to remote using the SAME BRANCH NAME even if upstream is not set.
 
 [commit]
     template = ~/.commit_template
+    gpgsign = true
+
+[tag]
+    forceSignAnnotated = true
 
 [color]
     ui = true
@@ -28,3 +33,6 @@
 
 [ghq]
     root = ~/repos
+
+[gpg]
+    program = gpg

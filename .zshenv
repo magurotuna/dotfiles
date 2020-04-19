@@ -42,6 +42,10 @@ export PATH="$GOBIN:$PATH"
 # LLVM
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
+# GNU PG
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+export GPG_TTY=$(tty)
+
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
