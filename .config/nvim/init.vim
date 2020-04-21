@@ -90,8 +90,10 @@ let g:lightline = {
 
 nnoremap j gj
 nnoremap k gk
+nnoremap <C-k> gk
 inoremap <silent> jj <ESC>
 inoremap <silent> jk <ESC>
+inoremap <silent> <C-h> <ESC>
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 " <leader><leader> toggles between buffers
