@@ -1,20 +1,20 @@
 font:
   normal:
-    family: Ricty
+    family: Cica
     style: Regular
   bold:
-    family: Ricty
+    family: Cica
     style: Bold
   italic:
-    family: Ricty
+    family: Cica
     style: Oblique
   bold_italic:
-    family: Ricty
+    family: Cica
     style: BoldOblique
-  size: 15
+  size: 16
   offset:
-    y: 3
-    x: 1
+    y: 0
+    x: 0
 background_opacity: 1
 window:
   dimensions:
