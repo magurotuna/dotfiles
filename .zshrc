@@ -19,6 +19,9 @@ eval "$(starship init zsh)"
 # direnv
 eval "$(direnv hook zsh)"
 
+# z
+. $(brew --prefix)/etc/profile.d/z.sh
+
 # Homebrew
 export PATH="/usr/local/sbin:$PATH"
 

@@ -24,9 +24,8 @@ set gdefault
 set wrapscan
 set hlsearch
 set hidden
-set cursorline
 set showcmd
-set number
+set relativenumber
 set mouse=a " Enable mouse usage (all modes) in terminals
 set undodir=~/.vimdid " Permanent undo
 set undofile
@@ -90,8 +89,10 @@ let g:lightline = {
 
 nnoremap j gj
 nnoremap k gk
+nnoremap <C-k> gk
 inoremap <silent> jj <ESC>
 inoremap <silent> jk <ESC>
+inoremap <silent> <C-h> <ESC>
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 " <leader><leader> toggles between buffers
