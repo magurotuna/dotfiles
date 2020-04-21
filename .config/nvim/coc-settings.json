@@ -10,5 +10,6 @@
     "Markdown",
     "c"
   ],
-  "coc.preferences.formatOnType": true
+  "coc.preferences.formatOnType": true,
+  "rust-analyzer.checkOnSave.enable": true
 }
