@@ -64,6 +64,9 @@ call plug#end()
 
 syntax enable
 colorscheme base16-onedark
+" make background transparent
+highlight Normal guibg=none
+highlight NonText guibg=none
 
 " lightline
 function! CocCurrentFunction()
@@ -266,3 +269,4 @@ endif
 
 " Disable comment-out continuation
 au Filetype * set formatoptions-=ro
+
