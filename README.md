@@ -1,3 +1,5 @@
+![CI](https://github.com/magurotuna/dotfiles/workflows/CI/badge.svg)
+
 # My dotfiles
 
 The core concepts of this dotfiles are **Portability** (*可搬性*) and **Idempotency** (*冪等性*).
