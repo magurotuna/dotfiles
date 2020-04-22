@@ -25,7 +25,7 @@ set wrapscan
 set hlsearch
 set hidden
 set showcmd
-set relativenumber
+set number
 set mouse=a " Enable mouse usage (all modes) in terminals
 set undodir=~/.vimdid " Permanent undo
 set undofile
@@ -64,6 +64,9 @@ call plug#end()
 
 syntax enable
 colorscheme base16-onedark
+" make background transparent
+highlight Normal guibg=none
+highlight NonText guibg=none
 
 " lightline
 function! CocCurrentFunction()
@@ -266,3 +269,4 @@ endif
 
 " Disable comment-out continuation
 au Filetype * set formatoptions-=ro
+
