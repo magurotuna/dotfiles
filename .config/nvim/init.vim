@@ -63,7 +63,7 @@ call plug#end()
 " =============================================================================
 
 syntax enable
-colorscheme base16-onedark
+colorscheme base16-eighties
 " make background transparent
 highlight Normal guibg=none
 highlight NonText guibg=none
