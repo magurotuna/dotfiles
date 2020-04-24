@@ -49,6 +49,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'preservim/nerdcommenter'
 Plug 'terryma/vim-expand-region'
 Plug 'cespare/vim-toml'
+Plug 'preservim/nerdtree'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -251,6 +252,9 @@ if executable('rg')
 	set grepformat=%f:%l:%c:%m
 endif
 
+" nerdtree
+noremap <leader>n :NERDTreeToggle<CR>
+
 " =============================================================================
 " # Autocommands
 " =============================================================================
@@ -270,3 +274,6 @@ endif
 " Disable comment-out continuation
 au Filetype * set formatoptions-=ro
 
+" Auto-loading a file as soon as it changes on disk
+set autoread
+au CursorHold * checktime
