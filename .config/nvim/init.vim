@@ -138,6 +138,16 @@ nnoremap st :<C-u>tabnew<CR>
 nnoremap sn gt
 nnoremap sp gT
 
+" Emacs-like key bindings in command line mode
+cnoremap <C-a> <Home>
+cnoremap <C-b> <Left>
+cnoremap <C-d> <Del>
+cnoremap <C-e> <End>
+cnoremap <C-f> <Right>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
 
 " =============================================================================
 " # Coc.nvim settings
