@@ -8,8 +8,9 @@
     "html",
     "css",
     "Markdown",
-    "c"
+    "c",
+    "json"
   ],
-  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnType": false,
   "rust-analyzer.checkOnSave.enable": true
 }
