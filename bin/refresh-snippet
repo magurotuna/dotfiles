@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+GHQ_ROOT=$(ghq root)
+LIBPROCON_PATH=$(ghq list | grep libprocon)
+DEST_DIR=${XDG_CONFIG_HOME}/coc/ultisnips
+
+if [ ! -d ${DEST_DIR} ]; then
+  echo "The target directory does not exist: ${DEST_DIR}"
+  echo "Abort."
+  exit 1
+fi
+
+cd ${GHQ_ROOT}/${LIBPROCON_PATH}
+cargo snippet -t ultisnips > "${DEST_DIR}/rust.snippets"
+
+echo "Refreshing snippets have been done!"

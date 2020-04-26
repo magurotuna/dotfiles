@@ -1,6 +1,6 @@
 snippet COMBINATION
-#[doc = " 二項係数を mod のもとで求める"]
-#[doc = " cf. [よくやる二項係数 (nCk mod. p)、逆元 (a^-1 mod. p) の求め方 - けんちょんの競プロ精進記録](http://drken1215.hatenablog.com/entry/2018/06/08/210000)"]
+/// 二項係数を mod のもとで求める
+/// cf. [よくやる二項係数 (nCk mod. p)、逆元 (a^-1 mod. p) の求め方 - けんちょんの競プロ精進記録](http://drken1215.hatenablog.com/entry/2018/06/08/210000)
 pub struct Comb {
     max_size: usize,
     modulo: usize,
@@ -51,17 +51,19 @@ snippet DISJOINT_SET
 #[derive(Debug, Clone)]
 pub struct DisjointSet {
     parent: Vec<usize>,
-    rank: Vec<usize>,
+    sizes: Vec<i64>,
+    rank: Vec<i64>,
 }
 impl DisjointSet {
     pub fn new(n: usize) -> Self {
         Self {
             parent: (0..n).collect(),
+            sizes: vec![1; n],
             rank: vec![0; n],
         }
     }
     pub fn root(&mut self, x: usize) -> Option<usize> {
-        if x > self.parent.len() {
+        if x >= self.parent.len() {
             None
         } else if self.parent[x] == x {
             Some(x)
@@ -86,8 +88,10 @@ impl DisjointSet {
         }
         if self.rank[x] < self.rank[y] {
             self.parent[x_root] = y_root;
+            self.sizes[y_root] += self.sizes[x_root];
         } else {
             self.parent[y_root] = x_root;
+            self.sizes[x_root] += self.sizes[y_root];
             if self.rank[x_root] == self.rank[y_root] {
                 self.rank[x_root] += 1;
             }
@@ -104,12 +108,39 @@ impl DisjointSet {
         };
         x_root == y_root
     }
+    pub fn size(&mut self, x: usize) -> Option<i64> {
+        self.root(x).map(|r| self.sizes[r])
+    }
 }
 endsnippet
 
 snippet GCD
-pub fn gcd(a: u64, b: u64) -> u64 {
-    if b == 0 {
+pub trait Int:
+    std::ops::Add<Output = Self>
+    + std::ops::Sub<Output = Self>
+    + std::ops::Mul<Output = Self>
+    + std::ops::Div<Output = Self>
+    + std::ops::Rem<Output = Self>
+    + std::hash::Hash
+    + PartialEq
+    + Eq
+    + PartialOrd
+    + Ord
+    + Copy
+{
+    fn zero() -> Self;
+    fn one() -> Self;
+    fn next(self) -> Self;
+    fn prev(self) -> Self;
+    fn sqrt_floor(self) -> Self;
+}
+macro_rules !impl_int_for_numerics {($($t :ty ) *) =>($(impl Int for $t {fn zero () ->Self {0 } fn one () ->Self {1 } fn next (self ) ->Self {self +Self ::one () } fn prev (self ) ->Self {self -Self ::one () } fn sqrt_floor (self ) ->Self {if self <Self ::zero () {return Self ::zero () ;} let two =Self ::one () .next () ;let mut ok =Self ::zero () ;let mut ng =self .next () ;while ng -ok >1 {let mid =(ng +ok ) /two ;if mid *mid <=self {ok =mid ;} else {ng =mid ;} } ok } } ) *) }
+impl_int_for_numerics !(u8 i8 u16 i16 u32 i32 u64 i64 usize isize );
+pub fn gcd<T>(a: T, b: T) -> T
+where
+    T: Int,
+{
+    if b == T::zero() {
         a
     } else {
         gcd(b, a % b)
@@ -117,22 +148,73 @@ pub fn gcd(a: u64, b: u64) -> u64 {
 }
 endsnippet
 
+snippet INT_TRAIT
+pub trait Int:
+    std::ops::Add<Output = Self>
+    + std::ops::Sub<Output = Self>
+    + std::ops::Mul<Output = Self>
+    + std::ops::Div<Output = Self>
+    + std::ops::Rem<Output = Self>
+    + std::hash::Hash
+    + PartialEq
+    + Eq
+    + PartialOrd
+    + Ord
+    + Copy
+{
+    fn zero() -> Self;
+    fn one() -> Self;
+    fn next(self) -> Self;
+    fn prev(self) -> Self;
+    fn sqrt_floor(self) -> Self;
+}
+macro_rules !impl_int_for_numerics {($($t :ty ) *) =>($(impl Int for $t {fn zero () ->Self {0 } fn one () ->Self {1 } fn next (self ) ->Self {self +Self ::one () } fn prev (self ) ->Self {self -Self ::one () } fn sqrt_floor (self ) ->Self {if self <Self ::zero () {return Self ::zero () ;} let two =Self ::one () .next () ;let mut ok =Self ::zero () ;let mut ng =self .next () ;while ng -ok >1 {let mid =(ng +ok ) /two ;if mid *mid <=self {ok =mid ;} else {ng =mid ;} } ok } } ) *) }
+impl_int_for_numerics !(u8 i8 u16 i16 u32 i32 u64 i64 usize isize );
+endsnippet
+
 snippet LCM
-pub fn gcd(a: u64, b: u64) -> u64 {
-    if b == 0 {
+pub fn gcd<T>(a: T, b: T) -> T
+where
+    T: Int,
+{
+    if b == T::zero() {
         a
     } else {
         gcd(b, a % b)
     }
 }
-pub fn lcm(a: u64, b: u64) -> u64 {
+pub trait Int:
+    std::ops::Add<Output = Self>
+    + std::ops::Sub<Output = Self>
+    + std::ops::Mul<Output = Self>
+    + std::ops::Div<Output = Self>
+    + std::ops::Rem<Output = Self>
+    + std::hash::Hash
+    + PartialEq
+    + Eq
+    + PartialOrd
+    + Ord
+    + Copy
+{
+    fn zero() -> Self;
+    fn one() -> Self;
+    fn next(self) -> Self;
+    fn prev(self) -> Self;
+    fn sqrt_floor(self) -> Self;
+}
+macro_rules !impl_int_for_numerics {($($t :ty ) *) =>($(impl Int for $t {fn zero () ->Self {0 } fn one () ->Self {1 } fn next (self ) ->Self {self +Self ::one () } fn prev (self ) ->Self {self -Self ::one () } fn sqrt_floor (self ) ->Self {if self <Self ::zero () {return Self ::zero () ;} let two =Self ::one () .next () ;let mut ok =Self ::zero () ;let mut ng =self .next () ;while ng -ok >1 {let mid =(ng +ok ) /two ;if mid *mid <=self {ok =mid ;} else {ng =mid ;} } ok } } ) *) }
+impl_int_for_numerics !(u8 i8 u16 i16 u32 i32 u64 i64 usize isize );
+pub fn lcm<T>(a: T, b: T) -> T
+where
+    T: Int,
+{
     a / gcd(a, b) * b
 }
 endsnippet
 
 snippet MOD_INT
-#[doc = " 累乗のmod"]
-#[doc = " cf. https://github.com/hatoo/competitive-rust-snippets/blob/master/src/modulo.rs"]
+/// 累乗のmod
+/// cf. https://github.com/hatoo/competitive-rust-snippets/blob/master/src/modulo.rs
 pub fn mod_pow(x: i64, n: i64, m: i64) -> i64 {
     let mut res = 1;
     let mut x = x % m;
@@ -146,9 +228,9 @@ pub fn mod_pow(x: i64, n: i64, m: i64) -> i64 {
     }
     res
 }
-#[doc = " mod m での a の逆元を求める"]
-#[doc = " m と a が互いに素でなければならないことに注意"]
-#[doc = " cf. [「1000000007 で割ったあまり」の求め方を総特集！ 〜 逆元から離散対数まで 〜 - Qiita](https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a)"]
+/// mod m での a の逆元を求める
+/// m と a が互いに素でなければならないことに注意
+/// cf. [「1000000007 で割ったあまり」の求め方を総特集！ 〜 逆元から離散対数まで 〜 - Qiita](https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a)
 pub fn mod_inv(a: i64, m: i64) -> i64 {
     use std::mem::swap;
     let mut a = a;
@@ -168,7 +250,7 @@ pub fn mod_inv(a: i64, m: i64) -> i64 {
     }
     u
 }
-#[derive(Debug, Clone, Copy)]
+#[derive(Clone, Copy)]
 pub struct ModInt {
     value: i64,
     modulo: i64,
@@ -182,37 +264,179 @@ impl ModInt {
         }
     }
 }
+impl std::fmt::Debug for ModInt {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.value)
+    }
+}
 impl std::fmt::Display for ModInt {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.value)
     }
 }
-macro_rules ! impl_mod_int { ( $ ( $ t : ty ) * ) => ( $ ( impl std :: cmp :: PartialEq <$ t > for ModInt { fn eq ( & self , other : &$ t ) -> bool { self . value == ( * other as i64 ) } } impl std :: ops :: Add <$ t > for ModInt { type Output = Self ; fn add ( self , other : $ t ) -> Self { Self :: new ( self . value + ( other as i64 ) , self . modulo ) } } impl std :: ops :: Sub <$ t > for ModInt { type Output = Self ; fn sub ( self , other : $ t ) -> Self { Self :: new ( self . value - ( other as i64 ) , self . modulo ) } } impl std :: ops :: Mul <$ t > for ModInt { type Output = Self ; fn mul ( self , other : $ t ) -> Self { Self :: new ( self . value * ( other as i64 ) , self . modulo ) } } impl std :: ops :: Div <$ t > for ModInt { type Output = Self ; fn div ( self , other : $ t ) -> Self { let inv = mod_inv ( other as i64 , self . modulo ) ; Self :: new ( self . value * inv , self . modulo ) } } ) * ) }
-impl_mod_int ! ( u8 i8 u16 i16 u32 i32 u64 i64 usize isize ) ;
+impl std::ops::Add for ModInt {
+    type Output = Self;
+    fn add(self, other: Self) -> Self {
+        Self::new(self.value + other.value, self.modulo)
+    }
+}
+impl std::ops::Sub for ModInt {
+    type Output = Self;
+    fn sub(self, other: Self) -> Self {
+        Self::new(self.value - other.value, self.modulo)
+    }
+}
+impl std::ops::Mul for ModInt {
+    type Output = Self;
+    fn mul(self, other: Self) -> Self {
+        Self::new(self.value * other.value, self.modulo)
+    }
+}
+impl std::ops::Div for ModInt {
+    type Output = Self;
+    fn div(self, other: Self) -> Self {
+        let inv = mod_inv(other.value, self.modulo);
+        Self::new(self.value * inv, self.modulo)
+    }
+}
+impl std::ops::AddAssign for ModInt {
+    fn add_assign(&mut self, other: Self) {
+        *self = Self::new(self.value + other.value, self.modulo);
+    }
+}
+impl std::ops::SubAssign for ModInt {
+    fn sub_assign(&mut self, other: Self) {
+        *self = Self::new(self.value - other.value, self.modulo);
+    }
+}
+impl std::ops::MulAssign for ModInt {
+    fn mul_assign(&mut self, other: Self) {
+        *self = Self::new(self.value * other.value, self.modulo);
+    }
+}
+impl std::ops::DivAssign for ModInt {
+    fn div_assign(&mut self, other: Self) {
+        let inv = mod_inv(other.value, self.modulo);
+        *self = Self::new(self.value * inv, self.modulo);
+    }
+}
+macro_rules !impl_mod_int {($($t :ty ) *) =>($(impl std ::cmp ::PartialEq <$t >for ModInt {fn eq (&self ,other :&$t ) ->bool {self .value ==(*other as i64 ) } } impl std ::ops ::Add <$t >for ModInt {type Output =Self ;fn add (self ,other :$t ) ->Self {Self ::new (self .value +(other as i64 ) ,self .modulo ) } } impl std ::ops ::AddAssign <$t >for ModInt {fn add_assign (&mut self ,other :$t ) {*self =Self ::new (self .value +(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Sub <$t >for ModInt {type Output =Self ;fn sub (self ,other :$t ) ->Self {Self ::new (self .value -(other as i64 ) ,self .modulo ) } } impl std ::ops ::SubAssign <$t >for ModInt {fn sub_assign (&mut self ,other :$t ) {*self =Self ::new (self .value -(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Mul <$t >for ModInt {type Output =Self ;fn mul (self ,other :$t ) ->Self {Self ::new (self .value *(other as i64 ) ,self .modulo ) } } impl std ::ops ::MulAssign <$t >for ModInt {fn mul_assign (&mut self ,other :$t ) {*self =Self ::new (self .value *(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Div <$t >for ModInt {type Output =Self ;fn div (self ,other :$t ) ->Self {let inv =mod_inv (other as i64 ,self .modulo ) ;Self ::new (self .value *inv ,self .modulo ) } } impl std ::ops ::DivAssign <$t >for ModInt {fn div_assign (&mut self ,other :$t ) {let inv =mod_inv (other as i64 ,self .modulo ) ;*self =Self ::new (self .value *inv ,self .modulo ) ;} } ) *) }
+impl_mod_int !(u8 i8 u16 i16 u32 i32 u64 i64 usize isize );
+endsnippet
+
+snippet PERMUTAION
+/// Ported from:
+/// - [bluss/permutohedron](https://github.com/bluss/permutohedron)
+/// - [hatoo/competitive-rust-snippets](https://github.com/hatoo/competitive-rust-snippets)
+pub trait LexicalPermutation {
+    /// Return `true` if the slice was permuted, `false` if it is already
+    /// at the last ordered permutation.
+    fn next_permutation(&mut self) -> bool;
+    /// Return `true` if the slice was permuted, `false` if it is already
+    /// at the first ordered permutation.
+    fn prev_permutation(&mut self) -> bool;
+}
+impl<T> LexicalPermutation for [T]
+where
+    T: Ord,
+{
+    /// Original author in Rust: Thomas Backman <serenity@exscape.org>
+    fn next_permutation(&mut self) -> bool {
+        if self.len() < 2 {
+            return false;
+        }
+        let mut i = self.len() - 1;
+        while i > 0 && self[i - 1] >= self[i] {
+            i -= 1;
+        }
+        if i == 0 {
+            return false;
+        }
+        let mut j = self.len() - 1;
+        while j >= i && self[j] <= self[i - 1] {
+            j -= 1;
+        }
+        self.swap(j, i - 1);
+        self[i..].reverse();
+        true
+    }
+    fn prev_permutation(&mut self) -> bool {
+        if self.len() < 2 {
+            return false;
+        }
+        let mut i = self.len() - 1;
+        while i > 0 && self[i - 1] <= self[i] {
+            i -= 1;
+        }
+        if i == 0 {
+            return false;
+        }
+        self[i..].reverse();
+        let mut j = self.len() - 1;
+        while j >= i && self[j - 1] < self[i - 1] {
+            j -= 1;
+        }
+        self.swap(i - 1, j);
+        true
+    }
+}
 endsnippet
 
 snippet PRIME
-pub trait Prime {
-    fn lower_primes(&self) -> Vec<usize>;
-    fn factorize(&self) -> std::collections::HashMap<usize, usize>;
+pub trait Int:
+    std::ops::Add<Output = Self>
+    + std::ops::Sub<Output = Self>
+    + std::ops::Mul<Output = Self>
+    + std::ops::Div<Output = Self>
+    + std::ops::Rem<Output = Self>
+    + std::hash::Hash
+    + PartialEq
+    + Eq
+    + PartialOrd
+    + Ord
+    + Copy
+{
+    fn zero() -> Self;
+    fn one() -> Self;
+    fn next(self) -> Self;
+    fn prev(self) -> Self;
+    fn sqrt_floor(self) -> Self;
 }
-impl Prime for usize {
-    #[doc = " エラトステネスの篩を用いてself以下の素数を求める"]
-    #[doc = " 計算量: O(n log log n)"]
-    fn lower_primes(&self) -> Vec<usize> {
+macro_rules !impl_int_for_numerics {($($t :ty ) *) =>($(impl Int for $t {fn zero () ->Self {0 } fn one () ->Self {1 } fn next (self ) ->Self {self +Self ::one () } fn prev (self ) ->Self {self -Self ::one () } fn sqrt_floor (self ) ->Self {if self <Self ::zero () {return Self ::zero () ;} let two =Self ::one () .next () ;let mut ok =Self ::zero () ;let mut ng =self .next () ;while ng -ok >1 {let mid =(ng +ok ) /two ;if mid *mid <=self {ok =mid ;} else {ng =mid ;} } ok } } ) *) }
+impl_int_for_numerics !(u8 i8 u16 i16 u32 i32 u64 i64 usize isize );
+pub trait Prime<T: Int> {
+    fn lower_primes(&self) -> Vec<T>;
+    fn factorize(&self) -> std::collections::HashMap<T, usize>;
+}
+impl<T> Prime<T> for T
+where
+    T: Int,
+{
+    /// エラトステネスの篩を用いてself以下の素数を求める
+    /// 計算量: O(n log log n)
+    fn lower_primes(&self) -> Vec<T> {
         let &this = self;
         let mut v = Vec::new();
-        if this < 2 {
+        if this <= T::one() {
             return v;
         }
-        let mut deque = (2..(this + 1)).collect::<std::collections::VecDeque<usize>>();
+        let mut deque = std::collections::VecDeque::new();
+        let mut t = T::one().next();
+        while t <= this {
+            deque.push_back(t);
+            t = t.next();
+        }
         let mut p = match deque.pop_front() {
             Some(x) => x,
             None => return v,
         };
         v.push(p);
-        while p as f64 <= (this as f64).sqrt() {
-            deque = deque.iter().filter(|&&x| x % p != 0).map(|x| *x).collect();
+        while p * p <= this {
+            deque = deque
+                .iter()
+                .filter(|&&x| x % p != T::zero())
+                .map(|x| *x)
+                .collect();
             p = match deque.pop_front() {
                 Some(x) => x,
                 None => return v,
@@ -224,18 +448,18 @@ impl Prime for usize {
         }
         v
     }
-    #[doc = " エラトステネスの篩を用いてselfを素因数分解する"]
-    fn factorize(&self) -> std::collections::HashMap<usize, usize> {
+    /// エラトステネスの篩を用いてselfを素因数分解する
+    fn factorize(&self) -> std::collections::HashMap<T, usize> {
         let mut ret = std::collections::HashMap::new();
-        let primes = ((*self as f64).sqrt() as usize).lower_primes();
+        let primes = self.sqrt_floor().lower_primes();
         let mut tmp = *self;
         for prime in primes {
-            while tmp % prime == 0 {
-                tmp /= prime;
+            while tmp % prime == T::zero() {
+                tmp = tmp / prime;
                 *ret.entry(prime).or_insert(0) += 1;
             }
         }
-        if tmp > 1 {
+        if tmp > T::one() {
             *ret.entry(tmp).or_insert(0) += 1;
         }
         ret
@@ -305,6 +529,63 @@ where
             (self.func)(c1, c2)
         }
     }
+}
+endsnippet
+
+snippet template
+#![allow(unused_imports, unused_macros, dead_code)]
+//! https://github.com/hatoo/competitive-rust-snippets
+use std::cmp::{max, min, Ordering};
+use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, VecDeque};
+use std::io::{stdin, stdout, BufWriter, Write};
+use std::iter::FromIterator;
+mod util {
+    use std::fmt::Debug;
+    use std::io::{stdin, stdout, BufWriter, StdoutLock};
+    use std::str::FromStr;
+    pub fn line() -> String {
+        let mut line: String = String::new();
+        stdin().read_line(&mut line).unwrap();
+        line.trim().to_string()
+    }
+    pub fn chars() -> Vec<char> {
+        line().chars().collect()
+    }
+    pub fn gets<T: FromStr>() -> Vec<T>
+    where
+        <T as FromStr>::Err: Debug,
+    {
+        let mut line: String = String::new();
+        stdin().read_line(&mut line).unwrap();
+        line.split_whitespace()
+            .map(|t| t.parse().unwrap())
+            .collect()
+    }
+    pub fn with_bufwriter<F: FnOnce(BufWriter<StdoutLock>) -> ()>(f: F) {
+        let out = stdout();
+        let writer = BufWriter::new(out.lock());
+        f(writer)
+    }
+}
+macro_rules !get {([$t :ty ] ) =>{{let mut line :String =String ::new () ;stdin () .read_line (&mut line ) .unwrap () ;line .split_whitespace () .map (|t |t .parse ::<$t >() .unwrap () ) .collect ::<Vec <_ >>() } } ;([$t :ty ] ;$n :expr ) =>{(0 ..$n ) .map (|_ |get !([$t ] ) ) .collect ::<Vec <_ >>() } ;($t :ty ) =>{{let mut line :String =String ::new () ;stdin () .read_line (&mut line ) .unwrap () ;line .trim () .parse ::<$t >() .unwrap () } } ;($($t :ty ) ,*) =>{{let mut line :String =String ::new () ;stdin () .read_line (&mut line ) .unwrap () ;let mut iter =line .split_whitespace () ;($(iter .next () .unwrap () .parse ::<$t >() .unwrap () ,) *) } } ;($t :ty ;$n :expr ) =>{(0 ..$n ) .map (|_ |get !($t ) ) .collect ::<Vec <_ >>() } ;($($t :ty ) ,*;$n :expr ) =>{(0 ..$n ) .map (|_ |get !($($t ) ,*) ) .collect ::<Vec <_ >>() } ;}
+macro_rules !debug {($($a :expr ) ,*) =>{eprintln !(concat !($(stringify !($a ) ," = {:?}, " ) ,*) ,$($a ) ,*) ;} }
+const BIG_STACK_SIZE: bool = true;
+fn main() {
+    use std::thread;
+    if BIG_STACK_SIZE {
+        thread::Builder::new()
+            .stack_size(32 * 1024 * 1024)
+            .name("solve".into())
+            .spawn(solve)
+            .unwrap()
+            .join()
+            .unwrap();
+    } else {
+        solve();
+    }
+}
+fn solve() {
+    todo!();
 }
 endsnippet
 
