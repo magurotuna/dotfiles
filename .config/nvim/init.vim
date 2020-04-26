@@ -237,6 +237,9 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" Change diagnotic sign character
+let g:coc_status_error_sign = has('mac') ? '❌ ' : 'E: '
+let g:coc_status_warning_sign = has('mac') ? '⚠︎  ' : 'W: '
 
 " =============================================================================
 " # Plugin settings
