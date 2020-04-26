@@ -50,6 +50,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'terryma/vim-expand-region'
 Plug 'cespare/vim-toml'
 Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -242,7 +243,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 " =============================================================================
 
 " easymotion
-nmap t <Plug>(easymotion-overwin-f2)
+nmap <leader>t <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable the default mappings
 
