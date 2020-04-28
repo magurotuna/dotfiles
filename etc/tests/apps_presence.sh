@@ -6,7 +6,7 @@ if is_mac; then
   # macOS test
   echo "💚 This is macOS."
   echo "💚 Start to check CLI & GUI apps have been installed for sure."
-  CLI_APPS="git gsed zsh tmux vim nvim jq ghq fzf exa rg direnv tree starship"
+  CLI_APPS="git gsed zsh tmux vim nvim jq ghq fzf exa rg delta direnv tree starship"
 
   for _APP in $CLI_APPS
   do
@@ -35,7 +35,7 @@ elif is_ubuntu; then
   # Ubuntu test
   echo "💚 This is Ubuntu."
   echo "💚 Start to check CLI apps have been installed for sure."
-  CLI_APPS="git zsh tmux vim nvim jq fzf bat exa rg direnv tree starship"
+  CLI_APPS="git zsh tmux vim nvim jq fzf bat exa rg delta direnv tree starship"
 
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 

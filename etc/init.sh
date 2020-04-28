@@ -56,6 +56,7 @@ function install_mac() {
                  exa \
                  bat \
                  ripgrep \
+                 git-delta \
                  direnv \
                  tree \
                  starship
@@ -134,6 +135,7 @@ function install_linux() {
                  exa \
                  bat \
                  ripgrep \
+                 git-delta \
                  direnv \
                  tree \
                  starship
