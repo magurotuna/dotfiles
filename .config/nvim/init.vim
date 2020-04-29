@@ -104,7 +104,7 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 nnoremap <leader><leader> <c-^>
 
 " Open hotkeys
-map <C-p> :Files<CR>
+map <C-p> :GFiles<CR>
 nmap <leader>; :Buffers<CR>
 
 " Quick-save
@@ -230,12 +230,18 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Prettier` to format current buffer
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
 " Use `:OR` for organize import of current buffer
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Remap keys for range format
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Remap keys for applying codeAction to the current line
+nmap <leader>a  <Plug>(coc-codeaction)
 
 " Change diagnotic sign character
 let g:coc_status_error_sign = has('mac') ? '❌ ' : 'E: '
@@ -255,19 +261,21 @@ noremap <leader>s :Rg<Enter>
 let g:fzf_layout = { 'down': '~20%' }
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   "rg --glob '!*.lock' --column --line-number --no-heading --color=always ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
 " ripgrep
 if executable('rg')
-	set grepprg=rg\ --no-heading\ --vimgrep
-	set grepformat=%f:%l:%c:%m
+  set grepprg=rg\ --no-heading\ --vimgrep
+  set grepformat=%f:%l:%c:%m
 endif
 
 " nerdtree
 noremap <leader>n :NERDTreeToggle<CR>
+" Show hidden files by default
+let NERDTreeShowHidden=1
 
 " =============================================================================
 " # Autocommands
