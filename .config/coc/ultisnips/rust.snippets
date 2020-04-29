@@ -231,24 +231,30 @@ pub fn mod_pow(x: i64, n: i64, m: i64) -> i64 {
 /// mod m での a の逆元を求める
 /// m と a が互いに素でなければならないことに注意
 /// cf. [「1000000007 で割ったあまり」の求め方を総特集！ 〜 逆元から離散対数まで 〜 - Qiita](https://qiita.com/drken/items/3b4fdf0a78e7a138cd9a)
-pub fn mod_inv(a: i64, m: i64) -> i64 {
+pub fn mod_inv(val: i64, modulo: i64) -> i64 {
     use std::mem::swap;
-    let mut a = a;
-    let mut b = m;
-    let mut u = 1;
+    let mut a = val;
+    let mut b = modulo;
+    let mut ret = 1;
     let mut v = 0;
     while b > 0 {
         let t = a / b;
         a -= t * b;
         swap(&mut a, &mut b);
-        u -= t * v;
-        swap(&mut u, &mut v);
+        ret -= t * v;
+        swap(&mut ret, &mut v);
     }
-    u %= m;
-    if u < 0 {
-        u += m;
+    ret %= modulo;
+    if ret < 0 {
+        ret += modulo;
     }
-    u
+    ret
+}
+pub trait IntoModInt {
+    /// Create a ModInt instance with modulo 1_000_000_007 (= 10^9 + 7).
+    fn mint(&self) -> ModInt;
+    /// Create a ModInt instance with any modulo.
+    fn mint_with_mod(&self, modulo: Self) -> ModInt;
 }
 #[derive(Clone, Copy)]
 pub struct ModInt {
@@ -320,7 +326,7 @@ impl std::ops::DivAssign for ModInt {
         *self = Self::new(self.value * inv, self.modulo);
     }
 }
-macro_rules !impl_mod_int {($($t :ty ) *) =>($(impl std ::cmp ::PartialEq <$t >for ModInt {fn eq (&self ,other :&$t ) ->bool {self .value ==(*other as i64 ) } } impl std ::ops ::Add <$t >for ModInt {type Output =Self ;fn add (self ,other :$t ) ->Self {Self ::new (self .value +(other as i64 ) ,self .modulo ) } } impl std ::ops ::AddAssign <$t >for ModInt {fn add_assign (&mut self ,other :$t ) {*self =Self ::new (self .value +(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Sub <$t >for ModInt {type Output =Self ;fn sub (self ,other :$t ) ->Self {Self ::new (self .value -(other as i64 ) ,self .modulo ) } } impl std ::ops ::SubAssign <$t >for ModInt {fn sub_assign (&mut self ,other :$t ) {*self =Self ::new (self .value -(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Mul <$t >for ModInt {type Output =Self ;fn mul (self ,other :$t ) ->Self {Self ::new (self .value *(other as i64 ) ,self .modulo ) } } impl std ::ops ::MulAssign <$t >for ModInt {fn mul_assign (&mut self ,other :$t ) {*self =Self ::new (self .value *(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Div <$t >for ModInt {type Output =Self ;fn div (self ,other :$t ) ->Self {let inv =mod_inv (other as i64 ,self .modulo ) ;Self ::new (self .value *inv ,self .modulo ) } } impl std ::ops ::DivAssign <$t >for ModInt {fn div_assign (&mut self ,other :$t ) {let inv =mod_inv (other as i64 ,self .modulo ) ;*self =Self ::new (self .value *inv ,self .modulo ) ;} } ) *) }
+macro_rules !impl_mod_int {($($t :ty ) *) =>($(impl IntoModInt for $t {fn mint (&self ) ->ModInt {ModInt ::new (*self as i64 ,1_000_000_007 ) } fn mint_with_mod (&self ,modulo :$t ) ->ModInt {ModInt ::new (*self as i64 ,modulo as i64 ) } } impl std ::cmp ::PartialEq <$t >for ModInt {fn eq (&self ,other :&$t ) ->bool {self .value ==(*other as i64 ) } } impl std ::ops ::Add <$t >for ModInt {type Output =Self ;fn add (self ,other :$t ) ->Self {Self ::new (self .value +(other as i64 ) ,self .modulo ) } } impl std ::ops ::AddAssign <$t >for ModInt {fn add_assign (&mut self ,other :$t ) {*self =Self ::new (self .value +(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Sub <$t >for ModInt {type Output =Self ;fn sub (self ,other :$t ) ->Self {Self ::new (self .value -(other as i64 ) ,self .modulo ) } } impl std ::ops ::SubAssign <$t >for ModInt {fn sub_assign (&mut self ,other :$t ) {*self =Self ::new (self .value -(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Mul <$t >for ModInt {type Output =Self ;fn mul (self ,other :$t ) ->Self {Self ::new (self .value *(other as i64 ) ,self .modulo ) } } impl std ::ops ::MulAssign <$t >for ModInt {fn mul_assign (&mut self ,other :$t ) {*self =Self ::new (self .value *(other as i64 ) ,self .modulo ) ;} } impl std ::ops ::Div <$t >for ModInt {type Output =Self ;fn div (self ,other :$t ) ->Self {let inv =mod_inv (other as i64 ,self .modulo ) ;Self ::new (self .value *inv ,self .modulo ) } } impl std ::ops ::DivAssign <$t >for ModInt {fn div_assign (&mut self ,other :$t ) {let inv =mod_inv (other as i64 ,self .modulo ) ;*self =Self ::new (self .value *inv ,self .modulo ) ;} } ) *) }
 impl_mod_int !(u8 i8 u16 i16 u32 i32 u64 i64 usize isize );
 endsnippet
 
@@ -435,7 +441,7 @@ where
             deque = deque
                 .iter()
                 .filter(|&&x| x % p != T::zero())
-                .map(|x| *x)
+                .copied()
                 .collect();
             p = match deque.pop_front() {
                 Some(x) => x,
@@ -556,7 +562,7 @@ snippet template
 //! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //! SOFTWARE.
-#![allow(unused_imports, unused_macros, dead_code)]
+#![allow(unused_imports, unused_attributes, unused_macros, dead_code)]
 use std::cmp::{max, min, Ordering};
 use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, VecDeque};
 use std::io::{stdin, stdout, BufWriter, Write};
