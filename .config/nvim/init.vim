@@ -261,7 +261,7 @@ noremap <leader>s :Rg<Enter>
 let g:fzf_layout = { 'down': '~20%' }
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   "rg --glob '!*.lock' --column --line-number --no-heading --color=always ".shellescape(<q-args>), 1,
+  \   "rg --hidden --glob '!*.lock' --column --line-number --no-heading --color=always ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
@@ -271,6 +271,10 @@ if executable('rg')
   set grepprg=rg\ --no-heading\ --vimgrep
   set grepformat=%f:%l:%c:%m
 endif
+
+" :GFiles include untracked files
+" See https://github.com/junegunn/fzf.vim/issues/129
+command! -bang -nargs=? -complete=dir GFiles call fzf#vim#gitfiles('--exclude-standard --cached --others')
 
 " nerdtree
 noremap <leader>n :NERDTreeToggle<CR>
