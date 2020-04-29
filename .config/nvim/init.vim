@@ -272,6 +272,10 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
+" :GFiles include untracked files
+" See https://github.com/junegunn/fzf.vim/issues/129
+command! -bang -nargs=? -complete=dir GFiles call fzf#vim#gitfiles('--exclude-standard --cached --others')
+
 " nerdtree
 noremap <leader>n :NERDTreeToggle<CR>
 " Show hidden files by default
