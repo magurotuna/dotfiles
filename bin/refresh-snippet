@@ -6,7 +6,7 @@ GHQ_ROOT=$(ghq root)
 LIBPROCON_PATH=$(ghq list | grep libprocon)
 DEST_DIR=${XDG_CONFIG_HOME}/coc/ultisnips
 
-if [ ! -d ${DEST_DIR} ]; then
+if [[ ! -d ${DEST_DIR} ]]; then
   echo "The target directory does not exist: ${DEST_DIR}"
   echo "Abort."
   exit 1
@@ -14,5 +14,41 @@ fi
 
 cd ${GHQ_ROOT}/${LIBPROCON_PATH}
 cargo snippet -t ultisnips > "${DEST_DIR}/rust.snippets"
-
 echo "Refreshing snippets have been done!"
+
+# Update cargo-atcoder.toml
+CARGO_ATCODER_CONFIG_PATH="${XDG_CONFIG_HOME}/cargo-atcoder.toml"
+if [[ ! -e ${CARGO_ATCODER_CONFIG_PATH} ]]; then
+  echo "cargo-atcoder.toml does not exist: ${CARGO_ATCODER_CONFIG_PATH}"
+  echo "Abort."
+  exit 1
+fi
+if [[ $(which procon-template 2>&1 > /dev/null; echo $?) -ne 0 ]]; then
+  echo "Unable to find the template extraction script."
+  exit 1
+fi
+cat <<EOF > ${CARGO_ATCODER_CONFIG_PATH}
+[atcoder]
+submit_via_binary = false
+update_interval = 1000
+binary_column = 80
+use_cross = true
+strip_path = "/usr/local/opt/binutils/bin/strip"
+
+[profile]
+target = "x86_64-unknown-linux-musl"
+
+[profile.release]
+lto = true
+panic = 'abort'
+
+[dependencies]
+
+[project]
+# rustc_version = "1.15.1"
+
+template = """
+$(procon-template)
+"""
+EOF
+echo "cargo-atcoder.toml has been updated!"

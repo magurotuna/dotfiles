@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Extract the latest template from rust.snippets
+
+set -e
+
+SNIPPET_PATH="${XDG_CONFIG_HOME}/coc/ultisnips/rust.snippets"
+
+if [[ ! -e ${SNIPPET_PATH} ]]; then
+  echo "Snippet file not exists: ${SNIPPET_PATH}"
+  exit 1
+fi
+
+
+TEMPLATE_START_LINE=$(cat ${SNIPPET_PATH} | egrep -n "^snippet template" | cut -d ":" -f 1)
+TEMPLATE_LINES=$(cat ${SNIPPET_PATH} | tail -n +${TEMPLATE_START_LINE} | egrep -n "^endsnippet" | cut -d ":" -f 1)
+TEMPLATE_CONTENT=$(cat ${SNIPPET_PATH} | sed -n "$((TEMPLATE_START_LINE + 1)),$((TEMPLATE_START_LINE + TEMPLATE_LINES - 2))p")
+
+echo "${TEMPLATE_CONTENT}"
