@@ -291,12 +291,6 @@ if has("autocmd")
   au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" Set filename to tmux's window name when opening a file in Vim
-if exists('$TMUX') && !exists('$NORENAME')
-  au BufEnter * if empty(&buftype) | call system('tmux rename-window "[vim]"'.expand('%:t:S')) | endif
-  au VimLeave * call system('tmux set-window automatic-rename on')
-endif
-
 " Disable comment-out continuation
 au Filetype * set formatoptions-=ro
 
