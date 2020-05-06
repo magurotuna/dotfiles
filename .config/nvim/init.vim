@@ -25,7 +25,7 @@ set wrapscan
 set hlsearch
 set hidden
 set showcmd
-set number
+set relativenumber
 set mouse=a " Enable mouse usage (all modes) in terminals
 set undodir=~/.vimdid " Permanent undo
 set undofile
@@ -40,7 +40,6 @@ set pumblend=15
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'andymass/vim-matchup'
 Plug 'itchyny/lightline.vim'
@@ -51,6 +50,8 @@ Plug 'terryma/vim-expand-region'
 Plug 'cespare/vim-toml'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
+Plug 'sheerun/vim-polyglot'
+Plug 'sainnhe/sonokai'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -65,10 +66,10 @@ call plug#end()
 " =============================================================================
 
 syntax enable
-colorscheme base16-eighties
-" make background transparent
-highlight Normal guibg=none
-highlight NonText guibg=none
+let g:sonokai_style = 'shusia'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+colorscheme sonokai
 
 " lightline
 function! CocCurrentFunction()
