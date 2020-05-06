@@ -150,38 +150,6 @@ schemes:
       magenta: '0xc594c5'
       cyan:    '0x5fb3b3'
       white:   '0xd8dee9'
-  base16_gruvbox_dark_pale: &base16_gruvbox_dark_pale
-    # Default colors
-    primary:
-      background: '0x262626'
-      foreground: '0xdab997'
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: '0x262626'
-      cursor: '0xdab997'
-
-    # Normal colors
-    normal:
-      black:   '0x262626'
-      red:     '0xd75f5f'
-      green:   '0xafaf00'
-      yellow:  '0xffaf00'
-      blue:    '0x83adad'
-      magenta: '0xd485ad'
-      cyan:    '0x85ad85'
-      white:   '0xdab997'
-
-    # Bright colors
-    bright:
-      black:   '0x8a8a8a'
-      red:     '0xff8700'
-      green:   '0x3a3a3a'
-      yellow:  '0x4e4e4e'
-      blue:    '0x949494'
-      magenta: '0xd5c4a1'
-      cyan:    '0xd65d0e'
-      white:   '0xebdbb2'
   one_dark: &one_dark
     # Default colors
     primary:
@@ -211,4 +179,33 @@ schemes:
       magenta: '#c678dd'
       cyan:    '#56b6c2'
       white:   '#ffffff'
-colors: *one_dark
+  base16_gruvbox_dark_soft: &base16_gruvbox_dark_soft
+    # Default colors
+    primary:
+      background: '0x32302f'
+      foreground: '0xd5c4a1'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x32302f'
+      cursor: '0xd5c4a1'
+    # Normal colors
+    normal:
+      black:   '0x32302f'
+      red:     '0xfb4934'
+      green:   '0xb8bb26'
+      yellow:  '0xfabd2f'
+      blue:    '0x83a598'
+      magenta: '0xd3869b'
+      cyan:    '0x8ec07c'
+      white:   '0xd5c4a1'
+    # Bright colors
+    bright:
+      black:   '0x665c54'
+      red:     '0xfe8019'
+      green:   '0x3c3836'
+      yellow:  '0x504945'
+      blue:    '0xbdae93'
+      magenta: '0xebdbb2'
+      cyan:    '0xd65d0e'
+      white:   '0xfbf1c7'
+colors: *base16_gruvbox_dark_soft

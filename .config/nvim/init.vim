@@ -51,7 +51,7 @@ Plug 'cespare/vim-toml'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
-Plug 'sainnhe/sonokai'
+Plug 'sainnhe/gruvbox-material'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -66,10 +66,9 @@ call plug#end()
 " =============================================================================
 
 syntax enable
-let g:sonokai_style = 'shusia'
-let g:sonokai_enable_italic = 1
-let g:sonokai_disable_italic_comment = 1
-colorscheme sonokai
+set background=dark
+let g:gruvbox_material_background = 'soft'
+colorscheme gruvbox-material
 
 " lightline
 function! CocCurrentFunction()
