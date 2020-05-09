@@ -247,8 +247,8 @@ nmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>a  <Plug>(coc-codeaction)
 
 " Change diagnotic sign character
-let g:coc_status_error_sign = has('mac') ? '❌ ' : 'E: '
-let g:coc_status_warning_sign = has('mac') ? '⚠︎  ' : 'W: '
+let g:coc_status_error_sign = has('mac') ? '  ' : 'E: '
+let g:coc_status_warning_sign = has('mac') ? '  ' : 'W: '
 
 " =============================================================================
 " # Plugin settings
