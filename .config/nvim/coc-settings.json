@@ -1,4 +1,7 @@
 {
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": ">>",
   "coc.preferences.formatOnSaveFiletypes": [
     "rust",
     "go",
@@ -12,5 +15,6 @@
     "json"
   ],
   "coc.preferences.formatOnType": false,
-  "rust-analyzer.checkOnSave.enable": true
+  "rust-analyzer.checkOnSave.enable": true,
+  "codeLens.enable": true
 }

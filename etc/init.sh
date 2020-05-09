@@ -89,7 +89,8 @@ function install_mac() {
                       chatwork \
                       skitch
 
-    # Install fonts (Ricty for Powerline & Menlo for Powerline)
+    # Install fonts
+    # Ricty for Powerline
     if ! ls -1 $HOME/Library/Fonts | grep "Ricty Regular for Powerline.ttf"; then
         echo "Install Ricty for Powerline."
         brew tap sanemat/font
@@ -98,6 +99,7 @@ function install_mac() {
         fc-cache -vf
     fi
 
+    # Menlo for Powerline
     if ! ls -1 $HOME/Library/Fonts | grep "Menlo for Powerline.ttf"; then
         echo "Install Menlo for Powerline."
         local TMP_DIR=menlo_tmp_$(date +%s)
@@ -107,6 +109,19 @@ function install_mac() {
         rm -rf ${HOME}/${TMP_DIR}
     fi
 
+    # Noto Sans Mono Nerd Font
+    if ! ls -1 $HOME/Library/Fonts | grep "Noto Sans Mono Light Nerd Font Complete.ttf"; then
+      echo "Install Noto Sans Mono (Nerd patched)."
+      local TMP_DIR=menlo_tmp_$(date +%s)
+      local TMP_DIR_PATH="${HOME}/${TMP_DIR}"
+      mkdir "${TMP_DIR_PATH}"
+      for STYLE in "Bold" "SemiBold" "Medium" "Regular" "Light"; do
+        curl -o "${TMP_DIR_PATH}/Noto Sans Mono ${STYLE} Nerd Font Complete.ttf" "https://github.com/ryanoasis/nerd-fonts/raw/2.1.0/patched-fonts/Noto/Sans-Mono/complete/Noto%20Sans%20Mono%20${STYLE}%20Nerd%20Font%20Complete.ttf" -sL
+      done
+      cp -f "${TMP_DIR_PATH}/*.ttf" "${HOME}/Library/Fonts/"
+      fc-cache -vf
+      rm -rf "${TMP_DIR_PATH}"
+    fi
     set -e
 }
 

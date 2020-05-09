@@ -1,17 +1,11 @@
 font:
   normal:
-    family: Cica
-    style: Regular
+    family: "NotoSansMono Nerd Font"
+    style: Light
   bold:
-    family: Cica
-    style: Bold
-  italic:
-    family: Cica
-    style: Oblique
-  bold_italic:
-    family: Cica
-    style: BoldOblique
-  size: 18
+    family: "NotoSansMono Nerd Font"
+    style: SemiBold
+  size: 16
   offset:
     y: 0
     x: 0
