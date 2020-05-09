@@ -1,7 +1,7 @@
 add_newline = true
 
 [line_break]
-disabled = false # if set `true`, zsh run into a bug. ref) https://github.com/starship/starship/issues/779
+disabled = true
 
 [aws]
 disabled = true
