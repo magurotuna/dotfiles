@@ -33,6 +33,7 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 set pumblend=15
+set numberwidth=5
 
 " =============================================================================
 " # Plugins
@@ -52,6 +53,8 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'sainnhe/gruvbox-material'
+Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-surround'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -290,9 +293,6 @@ if has("autocmd")
   " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
   au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
-" Disable comment-out continuation
-au Filetype * set formatoptions-=ro
 
 " Auto-loading a file as soon as it changes on disk
 set autoread
