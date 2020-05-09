@@ -15,6 +15,5 @@
     "json"
   ],
   "coc.preferences.formatOnType": false,
-  "rust-analyzer.checkOnSave.enable": true,
-  "codeLens.enable": true
+  "rust-analyzer.checkOnSave.enable": true
 }
