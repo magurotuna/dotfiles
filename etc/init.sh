@@ -2,64 +2,14 @@
 
 set -eu
 
-# load lib files
+# load utils
 source ${DOTPATH}/etc/lib/utils.sh
-
-function set_mac_config() {
-    # Common
-    defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
-    defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-    defaults write NSGlobalDomain KeyRepeat -int 1
-    defaults write NSGlobalDomain InitialKeyRepeat -int 15
-    defaults write NSGlobalDomain AppleAquaColorVariant -int 6
-    defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.733333 0.721569";
-    defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
-
-    # Finder
-    defaults write com.apple.finder AppleShowAllFiles true
-    defaults write com.apple.finder FXPreferredViewStyle Nlsv
-    defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
-    defaults write com.apple.finder ShowStatusBar -bool true
-    defaults write com.apple.finder ShowPathbar -bool true
-    defaults write com.apple.finder _FXSortFoldersFirst -bool true
-    chflags nohidden ~/Library
-    killall Finder
-
-    # Enable safari devtool
-    defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-
-    # Screenshots
-    defaults write com.apple.screencapture disable-shadow -bool true # Disable screenshot shadow
-    defaults write com.apple.screencapture type -string "png" # Set screenshot type to PNG
-    defaults write com.apple.screencapture location ~/Pictures/
-    killall SystemUIServer
-}
 
 function install_mac() {
     set +e
-    # XCode
-    xcode-select --install
-    # Install homebrew
-    if ! has "brew"; then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi
-    brew update
-    brew install git \
-                 gnu-sed \
-                 zsh \
-                 tmux \
-                 vim \
-                 neovim \
-                 jq \
-                 ghq \
-                 fzf \
-                 exa \
-                 bat \
-                 ripgrep \
-                 git-delta \
-                 direnv \
-                 tree \
-                 starship
+
+    # Install apps via Homebrew
+    source ${DOTPATH}/etc/lib/mac/brew_install.sh
 
     # Make zsh default shell
     local LOGIN_SHELL=$(show_user_shell)
@@ -72,56 +22,14 @@ function install_mac() {
         echo "Your default shell is already zsh."
     fi
 
-    # Install GUI apps via brew cask
-    brew cask install firefox \
-                      google-chrome \
-                      visual-studio-code \
-                      google-japanese-ime \
-                      docker \
-                      alfred \
-                      slack \
-                      sourcetree \
-                      spectacle \
-                      karabiner-elements \
-                      alacritty \
-                      typora \
-                      1password \
-                      chatwork \
-                      skitch
-
     # Install fonts
     # Ricty for Powerline
-    if ! ls -1 $HOME/Library/Fonts | grep "Ricty Regular for Powerline.ttf"; then
-        echo "Install Ricty for Powerline."
-        brew tap sanemat/font
-        brew install ricty --with-powerline
-        cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf $HOME/Library/Fonts/
-        fc-cache -vf
-    fi
-
+    source ${DOTPATH}/etc/lib/mac/ricty_for_powerline.sh
     # Menlo for Powerline
-    if ! ls -1 $HOME/Library/Fonts | grep "Menlo for Powerline.ttf"; then
-        echo "Install Menlo for Powerline."
-        local TMP_DIR=menlo_tmp_$(date +%s)
-        git clone https://github.com/abertsch/Menlo-for-Powerline.git ${HOME}/${TMP_DIR}
-        cp -f ${HOME}/${TMP_DIR}/Menlo*.ttf ${HOME}/Library/Fonts/
-        fc-cache -vf
-        rm -rf ${HOME}/${TMP_DIR}
-    fi
-
+    source ${DOTPATH}/etc/lib/mac/menlo_for_powerline.sh
     # Noto Sans Mono Nerd Font
-    if ! ls -1 $HOME/Library/Fonts | grep "Noto Sans Mono Light Nerd Font Complete.ttf"; then
-      echo "Install Noto Sans Mono (Nerd patched)."
-      local TMP_DIR=menlo_tmp_$(date +%s)
-      local TMP_DIR_PATH="${HOME}/${TMP_DIR}"
-      mkdir "${TMP_DIR_PATH}"
-      for STYLE in "Bold" "SemiBold" "Medium" "Regular" "Light"; do
-        curl -o "${TMP_DIR_PATH}/Noto Sans Mono ${STYLE} Nerd Font Complete.ttf" "https://github.com/ryanoasis/nerd-fonts/raw/2.1.0/patched-fonts/Noto/Sans-Mono/complete/Noto%20Sans%20Mono%20${STYLE}%20Nerd%20Font%20Complete.ttf" -sL
-      done
-      cp -f "${TMP_DIR_PATH}/*.ttf" "${HOME}/Library/Fonts/"
-      fc-cache -vf
-      rm -rf "${TMP_DIR_PATH}"
-    fi
+    source ${DOTPATH}/etc/lib/mac/noto_sans_mono_nerd.sh
+
     set -e
 }
 
@@ -186,7 +94,7 @@ function install_vimplug() {
 
 if is_mac; then
     echo "This is macOS."
-    set_mac_config
+    source ${DOTPATH}/etc/lib/mac/system_preferences.sh
     install_mac
 elif is_centos; then
     echo "This is Redhat Linux."
