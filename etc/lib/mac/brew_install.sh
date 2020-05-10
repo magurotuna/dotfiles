@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+source ../utils.hs
 
 function brew_install() {
     # XCode
