@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 function install_ricty_for_powerline() {
     if ! ls -1 $HOME/Library/Fonts | grep "Ricty Regular for Powerline.ttf"; then
         echo "Install Ricty for Powerline."

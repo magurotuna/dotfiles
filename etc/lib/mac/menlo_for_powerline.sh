@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 function install_menlo_for_powerline() {
     if ! ls -1 $HOME/Library/Fonts | grep "Menlo for Powerline.ttf"; then
         echo "Install Menlo for Powerline."

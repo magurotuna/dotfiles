@@ -42,7 +42,8 @@ function brew_install() {
                       typora \
                       1password \
                       chatwork \
-                      skitch
+                      skitch \
+                      fontforge
 }
 
 brew_install

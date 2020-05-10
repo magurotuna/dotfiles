@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 function install_noto_sans_mono_nerd() {
     if ! ls -1 $HOME/Library/Fonts | grep "Noto Sans Mono Light Nerd Font Complete.ttf"; then
         echo "Install Noto Sans Mono (Nerd patched)."
