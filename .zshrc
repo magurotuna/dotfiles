@@ -14,7 +14,7 @@ fi
 source $HOME/.cargo/env
 
 # Deno
-export DENO_INSTALL="/Users/yusuke/.deno"
+export DENO_INSTALL="${HOME}/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Starship
