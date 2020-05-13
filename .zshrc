@@ -13,6 +13,10 @@ fi
 # Rust
 source $HOME/.cargo/env
 
+# Deno
+export DENO_INSTALL="/Users/yusuke/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # Starship
 eval "$(starship init zsh)"
 
