@@ -638,14 +638,14 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>637 478 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2983 -272 1105 787 1680 -642 3008 1669 </string>
+	<string>0 0 1680 1027 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
 			<key>ASCII Ligatures</key>
-			<true/>
+			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
@@ -1329,7 +1329,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Cica-Regular 18</string>
+			<string>NotoSansMonoNerdFontComplete-Regular 15.5</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1418,17 +1418,17 @@
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
-		<string>Cica</string>
-		<string>Fira Code</string>
 		<string>Monaco</string>
-		<string>SF Mono Square</string>
+		<string>NotoSansMono Nerd Font</string>
+		<string>Noto Sans Mono CJK JP</string>
+		<string>Noto Sans CJK JP</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{1680, -390}, {2560, 1440}}</string>
+		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{2073, 737}</string>
+		<string>{459, 1027}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -1437,7 +1437,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>92C4F93A-89A9-4791-9C7A-4854660B65AF</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>37</integer>
+	<integer>40</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>586956166.28290606</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -2200,7 +2200,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-05-08T12:52:50Z</date>
+	<date>2020-05-11T14:36:29Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>

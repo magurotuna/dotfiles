@@ -1,15 +1,15 @@
 {
   "dependencies": {
-    "coc-clangd": ">=0.4.1",
+    "coc-clangd": ">=0.4.2",
     "coc-css": ">=1.2.3",
-    "coc-git": ">=1.7.12",
+    "coc-git": ">=1.7.13",
     "coc-highlight": ">=1.2.5",
     "coc-html": ">=1.2.4",
-    "coc-json": ">=1.2.5",
+    "coc-json": ">=1.2.6",
     "coc-pairs": ">=1.2.21",
     "coc-prettier": ">=1.1.12",
     "coc-python": ">=1.2.12",
-    "coc-rust-analyzer": ">=0.6.2",
+    "coc-rust-analyzer": ">=0.6.4",
     "coc-snippets": ">=2.1.26",
     "coc-tsserver": ">=1.5.1",
     "coc-yaml": ">=1.0.4"
