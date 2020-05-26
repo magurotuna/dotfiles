@@ -1,3 +1,57 @@
+snippet 2D
+pub trait TwoDimensionVectorExt {
+    fn adj4(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>>;
+    fn adj8(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>>;
+}
+impl<T> TwoDimensionVectorExt for Vec<Vec<T>> {
+    fn adj4(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>> {
+        let height = self.len() as isize;
+        assert!(height > 0);
+        let width = self[0].len() as isize;
+        assert!(width > 0);
+        let adj = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            .iter()
+            .filter_map(move |&(dy, dx)| {
+                let ny = row as isize + dy;
+                let nx = col as isize + dx;
+                if 0 <= ny && ny < height && 0 <= nx && nx < width {
+                    Some((ny as usize, nx as usize))
+                } else {
+                    None
+                }
+            });
+        Box::new(adj)
+    }
+    fn adj8(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>> {
+        let height = self.len() as isize;
+        assert!(height > 0);
+        let width = self[0].len() as isize;
+        assert!(width > 0);
+        let adj = [
+            (-1, 0),
+            (1, 0),
+            (0, -1),
+            (0, 1),
+            (-1, -1),
+            (-1, 1),
+            (1, -1),
+            (1, 1),
+        ]
+        .iter()
+        .filter_map(move |&(dy, dx)| {
+            let ny = row as isize + dy;
+            let nx = col as isize + dx;
+            if 0 <= ny && ny < height && 0 <= nx && nx < width {
+                Some((ny as usize, nx as usize))
+            } else {
+                None
+            }
+        });
+        Box::new(adj)
+    }
+}
+endsnippet
+
 snippet COMBINATION
 /// 二項係数を mod のもとで求める
 /// cf. [よくやる二項係数 (nCk mod. p)、逆元 (a^-1 mod. p) の求め方 - けんちょんの競プロ精進記録](http://drken1215.hatenablog.com/entry/2018/06/08/210000)
