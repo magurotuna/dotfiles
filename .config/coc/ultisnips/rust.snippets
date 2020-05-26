@@ -50,6 +50,99 @@ impl<T> TwoDimensionVectorExt for Vec<Vec<T>> {
         Box::new(adj)
     }
 }
+pub trait TwoDimensionVectorExt {
+    fn adj4(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>>;
+    fn adj8(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>>;
+}
+impl<T> TwoDimensionVectorExt for Vec<Vec<T>> {
+    fn adj4(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>> {
+        let height = self.len() as isize;
+        assert!(height > 0);
+        let width = self[0].len() as isize;
+        assert!(width > 0);
+        let adj = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            .iter()
+            .filter_map(move |&(dy, dx)| {
+                let ny = row as isize + dy;
+                let nx = col as isize + dx;
+                if 0 <= ny && ny < height && 0 <= nx && nx < width {
+                    Some((ny as usize, nx as usize))
+                } else {
+                    None
+                }
+            });
+        Box::new(adj)
+    }
+    fn adj8(&self, row: usize, col: usize) -> Box<dyn Iterator<Item = (usize, usize)>> {
+        let height = self.len() as isize;
+        assert!(height > 0);
+        let width = self[0].len() as isize;
+        assert!(width > 0);
+        let adj = [
+            (-1, 0),
+            (1, 0),
+            (0, -1),
+            (0, 1),
+            (-1, -1),
+            (-1, 1),
+            (1, -1),
+            (1, 1),
+        ]
+        .iter()
+        .filter_map(move |&(dy, dx)| {
+            let ny = row as isize + dy;
+            let nx = col as isize + dx;
+            if 0 <= ny && ny < height && 0 <= nx && nx < width {
+                Some((ny as usize, nx as usize))
+            } else {
+                None
+            }
+        });
+        Box::new(adj)
+    }
+}
+endsnippet
+
+snippet BINARY_SEARCH
+pub trait BinarySearchExt<T: Ord> {
+    fn lower_bound(&self, value: &T) -> usize;
+    fn upper_bound(&self, value: &T) -> usize;
+}
+impl<T> BinarySearchExt<T> for [T]
+where
+    T: Ord,
+{
+    /// Given a ascending-sorted array, find the minimum index `i`
+    /// such that the i-th value in the array is greater than or equal to `value`.
+    fn lower_bound(&self, value: &T) -> usize {
+        let mut ok = self.len() as i64;
+        let mut ng = -1_i64;
+        while ok - ng > 1 {
+            let mid = (ok + ng) / 2;
+            if self[mid as usize] >= *value {
+                ok = mid;
+            } else {
+                ng = mid;
+            }
+        }
+        ok as usize
+    }
+    /// Given a ascending-sorted array, find the minimum index `i`
+    /// such that the i-th value in the array is greater than `value`.
+    fn upper_bound(&self, value: &T) -> usize {
+        let mut ok = self.len() as i64;
+        let mut ng = -1_i64;
+        while ok - ng > 1 {
+            let mid = (ok + ng) / 2;
+            if self[mid as usize] > *value {
+                ok = mid;
+            } else {
+                ng = mid;
+            }
+        }
+        ok as usize
+    }
+}
 endsnippet
 
 snippet COMBINATION
