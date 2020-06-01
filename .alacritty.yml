@@ -188,4 +188,4 @@ schemes:
       magenta: '0xB48EAD'
       cyan: '0x8FBCBB'
       white: '0xECEFF4'
-colors: *gruvbox_material_dark_medium
+colors: *nord
