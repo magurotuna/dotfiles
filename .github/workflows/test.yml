@@ -15,14 +15,14 @@ jobs:
           make init
           make test_ci
 
-  test-ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Deploy -> Init
-        run: |
-          make
-          make deploy
-          make init
-          make test_ci
+  #test-ubuntu:
+    #runs-on: ubuntu-latest
+    #steps:
+      #- name: Checkout
+        #uses: actions/checkout@v1
+      #- name: Deploy -> Init
+        #run: |
+          #make
+          #make deploy
+          #make init
+          #make test_ci

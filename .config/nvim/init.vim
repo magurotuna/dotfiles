@@ -53,7 +53,7 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'sainnhe/gruvbox-material'
-Plug 'arcticicestudio/nord-vim'
+Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'tpope/vim-surround'
 
 " Fuzzy finder
@@ -70,8 +70,7 @@ call plug#end()
 
 syntax enable
 set background=dark
-let g:gruvbox_material_background = 'medium'
-colorscheme nord
+colorscheme dracula
 
 " lightline
 function! CocCurrentFunction()
@@ -79,7 +78,7 @@ function! CocCurrentFunction()
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]

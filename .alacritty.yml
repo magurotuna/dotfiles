@@ -4,7 +4,7 @@ font:
     style: Regular
   bold:
     family: "NotoSansMono Nerd Font"
-    style: Bold
+    style: SemiBold
   size: 15
   offset:
     y: 0
