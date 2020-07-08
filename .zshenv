@@ -56,5 +56,8 @@ export HISTSIZE=100000
 export SAVEHIST=1000000
 setopt share_history
 
+# Change directory without `cd`
+setopt auto_cd
+
 # fzf - command-line fuzzy finder (https://github.com/junegunn/fzf)
 export FZF_DEFAULT_OPTS="--extended --ansi --multi"
