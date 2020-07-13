@@ -23,6 +23,7 @@ function brew_install() {
                  bat \
                  ripgrep \
                  git-delta \
+                 tokei \
                  direnv \
                  tree \
                  starship

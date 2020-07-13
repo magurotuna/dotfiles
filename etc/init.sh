@@ -59,6 +59,7 @@ function install_linux() {
                  bat \
                  ripgrep \
                  git-delta \
+                 tokei \
                  direnv \
                  tree \
                  starship
