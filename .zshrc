@@ -52,6 +52,7 @@ alias gpu='git pull'
 alias sed='gsed'
 alias vi='nvim'
 alias vim='nvim'
+alias ca='cargo'
 alias atc='cargo atcoder'
 
 # Emacs mode (to use Ctrl-F, B, N, P, etc...)
