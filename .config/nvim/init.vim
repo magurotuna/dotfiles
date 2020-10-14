@@ -55,6 +55,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'sainnhe/gruvbox-material'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'tpope/vim-surround'
+Plug 'ghifarit53/tokyonight-vim'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -70,7 +71,9 @@ call plug#end()
 
 syntax enable
 set background=dark
-colorscheme dracula
+let g:tokyonight_style = 'storm'
+let g:tokyonight_enable_italic = 1
+colorscheme tokyonight
 
 " lightline
 function! CocCurrentFunction()
