@@ -555,11 +555,6 @@ coc-json@>=1.3.2:
   resolved "https://registry.yarnpkg.com/coc-json/-/coc-json-1.3.2.tgz#02c2ec78862cd421d650216de3fbdb466295f75a"
   integrity sha512-4wSADhO6oE2lxyYJw1cZqz6eYTrJWI4wHLETSTwhkkpZrPCNJA7mSmuB6oowxt7kJRmDVAIZP2mFyLTXU0jU6w==
 
-coc-pairs@>=1.2.21:
-  version "1.2.21"
-  resolved "https://registry.yarnpkg.com/coc-pairs/-/coc-pairs-1.2.21.tgz#7d7c75c68050dcc811dcdc1975f357f705532153"
-  integrity sha512-QTrzPCgk+zNVSnDjCbm3cvzb6c6rIwYMowrGhVb4XGnc8ooMXDBSfMoPYUtVgEJ+Qcu3++93OWr+m2VOHwHxag==
-
 coc-prettier@>=1.1.17:
   version "1.1.18"
   resolved "https://registry.yarnpkg.com/coc-prettier/-/coc-prettier-1.1.18.tgz#69e5ddf9e2bc9a7afe3884aa0b0f313e04037788"
