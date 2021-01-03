@@ -29,7 +29,7 @@ function brew_install() {
                  starship
 
     # Install GUI apps via brew cask
-    brew cask install firefox \
+    brew install --cask firefox \
                       google-chrome \
                       visual-studio-code \
                       google-japanese-ime \
