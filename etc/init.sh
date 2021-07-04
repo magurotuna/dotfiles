@@ -68,11 +68,9 @@ function install_linux() {
 function install_lang() {
     set +e
     brew update
-    brew install nodenv \
+    brew install volta \
                  pyenv \
-                 rbenv \
-                 goenv \
-                 yarn
+                 rbenv
 
     # Rust toolchain
     if ! has "rustup"; then
