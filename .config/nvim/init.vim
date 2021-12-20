@@ -193,7 +193,9 @@ xnoremap          gf  "sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-
 nnoremap <silent> gq  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
 nnoremap <silent> gr :<C-u>CocCommand fzf-preview.CocReferences<CR>
 nnoremap <silent> gi :<C-u>CocCommand fzf-preview.CocImplementations<CR>
-nnoremap <silent> gd  :<C-u>CocCommand fzf-preview.CocDefinition<CR>
+" Call coc-definition directly because `fzf-preview.CocDefinition` doesn't work for Go somehow
+"nnoremap <silent> gd  :<C-u>CocCommand fzf-preview.CocDefinition<CR>
+nmap <silent> gd <Plug>(coc-definition)
 nnoremap <silent> gy  :<C-u>CocCommand fzf-preview.CocTypeDefinition<CR>
 nnoremap <silent> go  :<C-u>CocCommand fzf-preview.CocOutline --add-fzf-arg=--exact --add-fzf-arg=--no-sort<CR>
 nnoremap <silent> gh :<C-u>call <SID>show_documentation()<CR>
