@@ -34,6 +34,8 @@ set shortmess+=c
 set signcolumn=yes
 set pumblend=15
 set numberwidth=5
+set colorcolumn=120
+set cursorline
 
 " =============================================================================
 " # Plugins
@@ -49,13 +51,17 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'preservim/nerdcommenter'
 Plug 'terryma/vim-expand-region'
 Plug 'cespare/vim-toml'
-Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'windwp/nvim-ts-autotag'
+" Auto-indentation etc.
 Plug 'sheerun/vim-polyglot'
-Plug 'sainnhe/gruvbox-material'
-Plug 'dracula/vim', {'as': 'dracula'}
-Plug 'tpope/vim-surround'
-Plug 'ghifarit53/tokyonight-vim'
+" filer
+Plug 'lambdalisue/fern.vim'
+" git
+Plug 'lambdalisue/gina.vim'
+" color scheme
+Plug 'crusoexia/vim-monokai'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -71,9 +77,7 @@ call plug#end()
 
 syntax enable
 set background=dark
-let g:tokyonight_style = 'storm'
-let g:tokyonight_enable_italic = 1
-colorscheme tokyonight
+colorscheme monokai
 
 " lightline
 function! CocCurrentFunction()
@@ -157,11 +161,14 @@ cnoremap <M-f> <S-Right>
 
 " =============================================================================
 " # Coc.nvim settings
+" # including fzf-preview
 " =============================================================================
 
 let g:coc_global_extensions = [
           \ 'coc-css',
           \ 'coc-git',
+          \ 'coc-lists',
+          \ 'coc-fzf-preview',
           \ 'coc-highlight',
           \ 'coc-html',
           \ 'coc-json',
@@ -169,8 +176,43 @@ let g:coc_global_extensions = [
           \ 'coc-python',
           \ 'coc-rust-analyzer',
           \ 'coc-tsserver',
+          \ 'coc-eslint',
           \ 'coc-yaml'
           \ ]
+
+let $BAT_THEME                     = 'gruvbox-dark'
+let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'gruvbox-dark'
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --smart-case'
+
+nnoremap <silent> <C-p>  :<C-u>CocCommand fzf-preview.FromResources buffer project_mru project<CR>
+nnoremap <silent> gs  :<C-u>CocCommand fzf-preview.GitStatus<CR>
+nnoremap <silent> gt :<C-u>CocCommand fzf-preview.GitActions<CR>
+nnoremap <silent> gb  :<C-u>CocCommand fzf-preview.Buffers<CR>
+nnoremap          gf  :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+xnoremap          gf  "sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> gq  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
+nnoremap <silent> gr :<C-u>CocCommand fzf-preview.CocReferences<CR>
+nnoremap <silent> gi :<C-u>CocCommand fzf-preview.CocImplementations<CR>
+nnoremap <silent> gd  :<C-u>CocCommand fzf-preview.CocDefinition<CR>
+nnoremap <silent> gy  :<C-u>CocCommand fzf-preview.CocTypeDefinition<CR>
+nnoremap <silent> go  :<C-u>CocCommand fzf-preview.CocOutline --add-fzf-arg=--exact --add-fzf-arg=--no-sort<CR>
+nnoremap <silent> gh :<C-u>call <SID>show_documentation()<CR>
+nmap <silent> <leader>rn <Plug>(coc-rename)
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+" Apply codeAction to the current word
+nmap <silent> <leader>a  <Plug>(coc-codeaction-selected)iw
+
+function! s:show_documentation() abort
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " use <tab> for trigger completion and navigate to the next complete item
 inoremap <silent><expr> <Tab>
@@ -200,52 +242,11 @@ inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#o
 " Use <Tab> to go next placeholder in snippet
 let g:coc_snippet_next = '<Tab>'
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use `gh` to show documentation in preview window
-nnoremap <silent> gh :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Prettier` to format current buffer
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Use `:OR` for organize import of current buffer
-command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-
-" Remap keys for range format
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Remap keys for applying codeAction to the current line
-nmap <leader>a  <Plug>(coc-codeaction)
 
 " Change diagnotic sign character
 let g:coc_status_error_sign = has('mac') ? '  ' : 'E: '
@@ -260,30 +261,33 @@ nmap <leader>t <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable the default mappings
 
-" <leader>s for Rg search
-noremap <leader>s :Rg<Enter>
-let g:fzf_layout = { 'down': '~20%' }
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   "rg --hidden --glob '!*.lock' --column --line-number --no-heading --color=always ".shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-" ripgrep
-if executable('rg')
-  set grepprg=rg\ --no-heading\ --vimgrep
-  set grepformat=%f:%l:%c:%m
-endif
-
 " :GFiles include untracked files
 " See https://github.com/junegunn/fzf.vim/issues/129
 command! -bang -nargs=? -complete=dir GFiles call fzf#vim#gitfiles('--exclude-standard --cached --others')
 
-" nerdtree
-noremap <leader>n :NERDTreeToggle<CR>
-" Show hidden files by default
-let NERDTreeShowHidden=1
+" fern
+nnoremap <silent> <Leader>n :<C-u>Fern .<CR>
+nnoremap <silent> <Leader>N :<C-u>Fern . -reveal=%<CR>
+
+" treesitter
+lua <<EOF
+require('nvim-treesitter.configs').setup {
+  ensure_installed = {
+    "typescript",
+    "tsx",
+    "go",
+    "rust",
+    "yaml",
+    "json",
+  },
+  highlight = {
+    enable = true,
+  },
+  autotag = {
+    enable = true,
+  },
+}
+EOF
 
 " =============================================================================
 " # Autocommands
