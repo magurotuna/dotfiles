@@ -7,7 +7,7 @@ function set_mac_config() {
     defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
     defaults write NSGlobalDomain AppleShowAllExtensions -bool true
     defaults write NSGlobalDomain KeyRepeat -int 1
-    defaults write NSGlobalDomain InitialKeyRepeat -int 15
+    defaults write NSGlobalDomain InitialKeyRepeat -int 10
     defaults write NSGlobalDomain AppleAquaColorVariant -int 6
     defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.733333 0.721569";
     defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
