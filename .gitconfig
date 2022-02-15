@@ -26,7 +26,7 @@
 [core]
     excludesfile = ~/.gitignore_global
     quotepath = false
-    pager = delta --plus-color="#012800" --minus-color="#340001" --theme='TwoDark'
+    pager = delta --plus-style="syntax #012800" --minus-style="normal #340001" --theme='TwoDark'
 
 [interactive]
     diffFilter = delta --color-only
